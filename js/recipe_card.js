@@ -64,8 +64,9 @@ $(document).ready(function () {
             for (step = 0; step < turnList['length']; step++) {
                 let temp_html4 = `
                                 <div class="Gallery-item js-item">
-                                    <div class="Gallery-itemContent"><img src="${img_list[step]}"></div>
-                                    <div class="Gallery-itemContent" style="font-size: 20px;">${turnList[step]}</div>
+                                    <div class="Gallery-itemContent" style=""><img class="rdg-image" src="${img_list[step]}" style="object-fit:cover;width:100%;
+                                    height:100%;"></div>
+                                    <div class="Gallery-itemContent" style="font-size: 20px; text-align:center;">${turnList[step]}</div>
                                 </div>
                                 `;
                 $("#recipe_turn").append(temp_html4);
@@ -251,3 +252,40 @@ class Gallery {
 }
 
 
+async function createReview() {
+    // const accessToken = localStorage.getItem('access')
+    params = new URLSearchParams(window.location.search);
+    recipe_id = params.get("recipe_id");
+    const title = document.getElementById("title").value;
+    const star = parseInt(document.getElementById("star").value);
+    const content = document.getElementById("content").value;
+    const image = document.getElementById("image");
+
+
+    const formData = new FormData();
+    formData.append("title", title,);
+    formData.append("star", star);
+    formData.append("content", content);
+    formData.append("image", image.files[0]);
+
+
+    response = await fetch(`http://127.0.0.1:8000/review/${recipe_id}/`, {
+        headers: {
+            // 'Authorization': `Bearer ${accessToken}`
+        },
+        method: 'POST',
+        body: formData
+    })
+
+        .then(response => response.json())
+
+        .then(data => {
+            alert("후기가 등록되었습니다.");
+            window.location.reload();
+        })
+
+
+        .catch(error => {
+            alert("에러가 발생했습니다.");
+        });
+}

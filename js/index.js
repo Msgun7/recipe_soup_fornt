@@ -9,7 +9,7 @@ async function RecipeList() {
     })
 
     const response_json = await response.json()
-
+    $('#recipe_list').empty()
     response_json.forEach((a) => {
         const name = a['name']
         const category = a['category']
@@ -26,7 +26,7 @@ async function RecipeList() {
                                     <div class="metadata">
                                         <div class="review-rating">
                                             <span class="cp-stars">
-                                                ${kcal}
+                                                ${kcal}kcal
                                             </span>
                                         </div>
                                         <div class="review-author">
@@ -40,3 +40,5 @@ async function RecipeList() {
     })
 }
 RecipeList()
+
+
