@@ -15,7 +15,14 @@ async function ReviewList() {
         console.log(a)
         const title = a['title']
         // const user = a['user']
-        const star = a['star']
+        let stars = {
+            "1": "⭐️",
+            "2": "⭐️⭐️",
+            "3": "⭐️⭐️⭐️",
+            "4": "⭐️⭐️⭐️⭐️",
+            "5": "⭐️⭐️⭐️⭐️⭐️"
+        }
+        const star = stars[a['star']]
         const review_id = a['id']
         let created_at = new Date(a['created_at']);
         let month = (created_at.getMonth() + 1); // 월, 11[1을 더해야함. 유일하게 조심해야할 부분. 1월은 0이다.]

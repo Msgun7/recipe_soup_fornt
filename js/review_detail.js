@@ -13,18 +13,25 @@ async function getReviewDetail() {
 
     const response_json = await response.json()
 
-
+    let stars = {
+        "1": "⭐️",
+        "2": "⭐️⭐️",
+        "3": "⭐️⭐️⭐️",
+        "4": "⭐️⭐️⭐️⭐️",
+        "5": "⭐️⭐️⭐️⭐️⭐️"
+    }
     const review_title = response_json['title']
     const review_content = response_json['content']
     const review_created_at = response_json['created_at']
-    const review_recipe_name = response_json['recipe_name']
-    const star = response_json['star']
-    const image = root_address + response_json["image"];
+    // const review_recipe_name = response_json['recipe_name']
+    const star = stars[response_json['star']]
+    let image = root_address + response_json["image"];
     const recipe_id = response_json['recipe']
     let created_at = new Date(review_created_at);
     let month = (created_at.getMonth() + 1); // 월, 11[1을 더해야함. 유일하게 조심해야할 부분. 1월은 0이다.]
     let date = created_at.getDate(); // 일, 14
     let year = created_at.getFullYear()
+
     let temp_html = `
                     <h3>${review_title}</h3>
                     <div style="float: left; margin-bottom:20px">
@@ -45,8 +52,13 @@ async function getReviewDetail() {
     let temp_html2 = `<a href="/recipe_detail.html?recipe_id=${recipe_id}" class="back-link">레시피 보러가기</a>`
     $("#recipe_name").append(temp_html2)
 
-    let temp_html3 = `<img class="thumb" src="${image}" style="float:left; border: 2px solid #696865; width:100%; height:100%;">`
-    $("#review_detail_img").append(temp_html3)
+    if (response_json['image'] == null) {
+        let temp_html3 = `<img class="thumb" src="/assets/main-bg.jpg" style="float:left; border: 2px solid #696865; width:100%; height:100%;">`
+        $("#review_detail_img").append(temp_html3)
+    } else {
+        let temp_html3 = `<img class="thumb" src="${image}" style="float:left; border: 2px solid #696865; width:100%; height:100%;">`
+        $("#review_detail_img").append(temp_html3)
+    }
 
 }
 

@@ -261,7 +261,6 @@ async function createReview() {
     const content = document.getElementById("content").value;
     const image = document.getElementById("image");
 
-
     const formData = new FormData();
     formData.append("title", title,);
     formData.append("star", star);
