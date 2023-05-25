@@ -53,8 +53,9 @@ async function getReviewDetail() {
     $("#recipe_name").append(temp_html2)
 
     if (response_json['image'] == null) {
-        let temp_html3 = `<img class="thumb" src="/assets/main-bg.jpg" style="float:left; border: 2px solid #696865; width:100%; height:100%;">`
+        let temp_html3 = `<img class="thumb" src="/css/assets/main-bg.jpg" style="float:left; border: 2px solid #696865; width:100%; height:100%;">`
         $("#review_detail_img").append(temp_html3)
+        console.log('hi')
     } else {
         let temp_html3 = `<img class="thumb" src="${image}" style="float:left; border: 2px solid #696865; width:100%; height:100%;">`
         $("#review_detail_img").append(temp_html3)
