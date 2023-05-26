@@ -1,7 +1,7 @@
 async function getReviewDetail() {
     const root_address = `http://127.0.0.1:8000`;
     params = new URLSearchParams(window.location.search);
-    localStorage.setItem("last_watch_review", review_id)
+    review_id = params.get("review_id");
 
 
     const response = await fetch(`http://127.0.0.1:8000/review/detail/${review_id}/`, {
