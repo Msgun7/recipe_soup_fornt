@@ -38,11 +38,16 @@
             </div>
         </div>
         <div class=" content-list max-content-width">
+            <div id="page_num" style="margin-left:50px">
+            </div>
             <div class="header">
-                <h2>Recipe</h2>
+                <button class="cp-button secondary" id="m_btn" onclick="M_Page()">뒤로</button>
+                <div></div>
+                <button class="cp-button secondary" id="p_btn" onclick="P_Page()">다음</button>
             </div>
             <div class="contents" id="recipe_list">
             </div>
+
         </div>
 
     </main>
@@ -87,7 +92,7 @@
                         Login</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="POST" action="{% url 'login'%}">
+                <form method="post" action="post-form">
                     <div class="modal-body">
                         <h5>Email</h5>
                         <input name="email" id="login-email" type="email" class="form-control" placeholder="Email">
@@ -102,6 +107,15 @@
                             Login
                         </button>
                     </div>
+                    <h2>Login</h2>
+                    <a href="{% provider_login_url 'kakao' %}">카카오로 로그인</a>
+                    <br><br>
+                    <form method="POST" action="{% http://127.0.0.1:8000/users/kakao/login/ %}">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button class="btn btn-primary" type="submit">로그인</button>
+                    </form>
+
                 </form>
             </div>
         </div>
