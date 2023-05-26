@@ -25,6 +25,7 @@
 
 /* site */
 
+
 body {
   display: flex;
   min-height: 100vh;
@@ -32,6 +33,7 @@ body {
   margin: 0;
   background-color: var(--body-background);
   word-break: keep-all;
+
 }
 
 body>.site-body {
@@ -133,6 +135,7 @@ ul.navba2 li {
 
 .content-list {
   margin: 72px auto 340px;
+
 }
 
 .content-list .header {
@@ -150,12 +153,11 @@ ul.navba2 li {
 
 .content-list .contents {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 46px 40px;
-
 }
 
-@media (max-width: 640px) {
+@media (max-width: 300px) {
   .content-list .contents {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
@@ -207,7 +209,7 @@ ul.navba2 li {
 }
 
 .content-list .content .date {
-  font-size: 14px;
+  font-size: 7px;
   letter-spacing: -0.21px;
   color: var(--content-list-contet-date);
 }
@@ -278,18 +280,18 @@ ul.navba2 li {
   align-items: center;
   max-width: 100%;
   width: 100%;
-  height: 500px;
+  height: 100%;
   margin: 0 auto;
+  background-image: url('https://img.freepik.com/free-photo/chopping-board-surrounded-with-vegetables-eggs-and-rice-grains-on-desk_23-2148062361.jpg?size=626&ext=jpg&ga=GA1.1.1884226275.1684992707&semt=ais');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url("../assets/main-bg.jpg");
 }
 
 .main-header .content>h1 {
   margin: 220px 10px 437px;
   text-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
-  font-size: 40px;
+  font-size: 20px;
   letter-spacing: 15.4px;
   text-align: center;
   word-break: keep-all;

@@ -39,15 +39,20 @@
             </div>
         </div>
         <div class=" content-list max-content-width">
+            <div id="page_num" style="margin-left:50px">
+            </div>
             <div class="header">
-                <h2>Recipe</h2>
+                <button class="cp-button secondary" id="m_btn" onclick="M_Page()">뒤로</button>
+                <div></div>
+                <button class="cp-button secondary" id="p_btn" onclick="P_Page()">다음</button>
             </div>
             <div class="contents" id="recipe_list">
             </div>
+
         </div>
     </main>
     <!-- content end -->
-    회원가입 모달창
+    <!-- 회원가입 모달창 -->
   <div class="modal fade" id="signup" tabindex="-1" aria-labelledby="su" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -71,8 +76,8 @@
                 <div class="social-login">
                   <button class="kakao">Kakao</button>
                   <button class="google" onclick="GoogleLogin()">Google</button>
-                  <button class="naver">Naver</button>
-                  <button class="github">GitHub</button>
+                  <button class="naver" onclick="naverLogin()">Naver</button>
+                  <button class="github" onclick="githubLogin()">GitHub</button>
                 </div>
               </div>
             </div>
@@ -103,10 +108,10 @@
                   <span>or</span>
                 </div>
                 <div class="social-login">
-                  <button class="kakao" onclick="moveJwtTokenFromCookieToLocalStorage()">Kakao</button>
+                  <button class="kakao" onclick="">Kakao</button>
                   <button class="google" onclick="googleLogin()">Google</button>
-                  <button class="naver">Naver</button>
-                  <button class="github">GitHub</button>
+                  <button class="naver" onclick="naverLogin()">Naver</button>
+                  <button class="github" onclick="githubLogin()">GitHub</button>
                   
                 </div>
               </div>
