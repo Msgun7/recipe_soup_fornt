@@ -46,7 +46,7 @@ async function getReviewDetail() {
                     <br>
                     <p class="content">${star}</p>
                     <p class="content">${review_content}</p>
-                    <p style="float:right;"><button class="btn btn-secondary" onclick="delete_review('${recipe_id}')">삭제</button></p>
+                    <p style="float:right;"><button class="btn btn-secondary" onclick="delete_review('${review_id}')">삭제</button></p>
                     `
     $("#review_info").append(temp_html)
     // <img class="thumb" src="/css/assets/main-bg.jpg" style="float:left; border: 2px solid #696865;">
@@ -242,7 +242,7 @@ async function delete_review(review_id) {
     });
     if (response.status == 204) {
         alert("후기가 삭제되었습니다!")
-        location.replace('/recipe_list.html')
+        location.replace('/review_list.html')
     }
     else {
 

@@ -150,7 +150,7 @@ async function M_Page() {
 
 // 가장 최근에 본 레시피
 async function LastRecipe() {
-    if (localStorage.getItem('last_watch_recipe')) {
+    if (localStorage.getItem('last_watch_recipe') != null) {
         let last_watch_recipe = localStorage.getItem('last_watch_recipe')
         const response = await fetch(`http://127.0.0.1:8000/recipe/${last_watch_recipe}/`, {
 
