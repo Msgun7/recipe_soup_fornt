@@ -95,7 +95,7 @@
     left: 10px;
     width: 100%;
     height: 100%;
-    background-color: rgb(183, 147, 4);
+    background-color: rgba(183, 177, 171, 0.598);
 }
 
 .Gallery-container {
@@ -114,7 +114,7 @@
     width: var(--gallery-item-size);
     height: calc(var(--gallery-item-size) * .56);
     background-color: #FFF;
-    border: 2px solid rgb(238, 190, 0);
+    border: 2px solid rgb(238, 171, 0);
     color: rgb(133, 133, 131);
     display: flex;
     justify-content: center;
