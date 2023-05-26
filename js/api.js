@@ -59,7 +59,7 @@ async function googleLogin() {
     }
   }
 
-  if (jwtToken) {
+  if (!jwtToken) {
     window.location.replace(`${backend_base_url}/users/google/login/`);
   }
 
