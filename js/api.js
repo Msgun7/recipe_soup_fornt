@@ -25,6 +25,7 @@ async function handleSignup() {
       "password2": password2
     })
   })
+  console.log()
 
   if (response.status == 201) {
     document.getElementById("signup").querySelector('[data-bs-dismiss="modal"]').click();
@@ -228,6 +229,12 @@ async function githubLogin() {
 
 }
 
+// function uhandleLogout() {
+//   localStorage.removeItem("access")
+//   localStorage.removeItem("refresh")
+//   localStorage.removeItem("payload")
+//   window.location.replace(`http://127.0.0.1:5500/index.html`)
+// }
 
 function handleLogout() {
   const cookies = document.cookie.split(';');
