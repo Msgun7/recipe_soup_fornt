@@ -10,6 +10,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
     crossorigin="anonymous"></script>
+  <link href="/css/styles/recipe_card.css" rel="stylesheet" type="text/css" />
   <link href="/css/styles/style.css" rel="stylesheet" type="text/css" />
   <link href="/css/styles/theme.css" rel="stylesheet" type="text/css" />
   <link href="/css/styles/login.css" rel="stylesheet" type="text/css" />
@@ -23,7 +24,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="/js/index.js"></script>
-  <link href="/css/styles/recipe_card.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -88,7 +88,7 @@
                 </div>
                 <div class="social-login">
                   <button class="kakao">Kakao</button>
-                  <button class="google" onclick="GoogleLogin()">Google</button>
+                  <button class="google" onclick="googleLogin()">Google</button>
                   <button class="naver">Naver</button>
                   <button class="github">GitHub</button>
                 </div>
@@ -108,7 +108,7 @@
             Sign in</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="container">
+        <div class="container" style="width: 498px;">
           <div class="global-cont">
             <div class="inner-cont">
               <div class="sign-in-up">
@@ -125,7 +125,6 @@
                   <button class="google" onclick="googleLogin()">Google</button>
                   <button class="naver">Naver</button>
                   <button class="github">GitHub</button>
-
                 </div>
               </div>
             </div>
