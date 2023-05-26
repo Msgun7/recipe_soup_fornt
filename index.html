@@ -48,6 +48,7 @@
     </main>
     <!-- content end -->
     <!-- 회원가입 모달창 -->
+
     <div class="modal fade" id="signup" tabindex="-1" aria-labelledby="su" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -61,9 +62,19 @@
                         <div class="inner-cont">
                             <div class="sign-in-up">
                                 <form class="sign-in-form active">
-                                    <input type="text" placeholder="Email">
-                                    <input type="password" placeholder="Password">
-                                    <input type="submit" value="Sign up">
+                                    <input name="email" id="email" type="email" class="form-control"
+                                        placeholder="Email">
+                                    <input name="password" id="Password" type="password" class="form-control"
+                                        placeholder="Password">
+                                    <input name="password2" id="Password2" type="password" class="form-control"
+                                        placeholder="Password2">
+                                    <div>
+                                        <button type="button" onclick="handleSignup()" class="btn btn-primary"
+                                            style="float: center">
+                                            Signup
+                                        </button>
+                                    </div>
+                                    <div></div>
                                 </form>
                                 <div class="divider">
                                     <span>or</span>
