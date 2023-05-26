@@ -42,7 +42,30 @@ function moveJwtTokenFromCookieToLocalStorage() {
   }
 }
 
+async function KakaoLogin() {
+  const cookies = document.cookie.split(';');
 
+  let jwtToken;
+
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].trim();
+    const [name, value] = cookie.split('=');
+
+    if (name === "jwt_token") {
+      jwtToken = value;
+      break;
+    }
+  }
+
+  if (!jwtToken) {
+    window.location.replace(`${backend_base_url}/users/kakao/login/`);
+  }
+
+  const response = await fetch(`${backend_base_url}/users/kakao/login/`, {
+
+  });
+
+}
 
 async function googleLogin() {
   const cookies = document.cookie.split(';');
@@ -59,14 +82,14 @@ async function googleLogin() {
     }
   }
 
-  if (jwtToken) {
+  if (!jwtToken) {
     window.location.replace(`${backend_base_url}/users/google/login/`);
   }
 
   const response = await fetch(`${backend_base_url}/users/google/login/`, {
 
   });
-  
+
 }
 
 async function naverLogin() {
@@ -91,7 +114,7 @@ async function naverLogin() {
   const response = await fetch(`${backend_base_url}/users/naver/login/`, {
 
   });
-  
+
 }
 
 async function githubLogin() {
@@ -116,7 +139,7 @@ async function githubLogin() {
   const response = await fetch(`${backend_base_url}/users/github/login/`, {
 
   });
-  
+
 }
 
 // function handleLogout() {
@@ -148,7 +171,7 @@ function handleLogout() {
 
 }
 
-function checkLogin(){
+function checkLogin() {
   const cookies = document.cookie.split(';');
 
   let jwtToken;
@@ -163,7 +186,7 @@ function checkLogin(){
     }
   }
 
-  if (!jwtToken){
+  if (!jwtToken) {
     window.location.replace(`${frontend_base_url}/index.html`)
   }
 }
@@ -175,14 +198,14 @@ async function handlesUserDelete() {
   const payload_parse = JSON.parse(payload)
 
   const response = await fetch(`${backend_base_url}/users/mypagelist/${payload_parse.user_id}/`, {
-      headers: {
-          "Authorization": `Bearer ${token}`
-      },
-      method: 'DELETE',
+    headers: {
+      "Authorization": `Bearer ${token}`
+    },
+    method: 'DELETE',
   })
 
-  localStorage.removeItem("access")
-  localStorage.removeItem("refresh")
-  localStorage.removeItem("payload")
-  window.location.replace(`${frontend_base_url}/index.html`)
+  // localStorage.removeItem("access")
+  // localStorage.removeItem("refresh")
+  // localStorage.removeItem("payload")
+  // window.location.replace(`${frontend_base_url}/index.html`)
 }
