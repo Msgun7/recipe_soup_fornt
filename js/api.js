@@ -59,14 +59,37 @@ async function googleLogin() {
     }
   }
 
-  if (jwtToken) {
+  if (!jwtToken) {
     window.location.replace(`${backend_base_url}/users/google/login/`);
   }
 
   const response = await fetch(`${backend_base_url}/users/google/login/`, {
 
   });
-  
+
+  alert("※ 다른 소셜로 로그인해주세요!");
+
+  if (response.status === 302) {
+    alert("※ 다른 소셜로 로그인해주세요!");
+  }
+
+  if (!jwtToken) {
+    alert("※ 다른 소셜로 로그인해주세요!");
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const status = urlParams.get('status_code');
+
+  console.log(status)
+
+  if (status === '400') {
+    alert("※ 다른 소셜로 로그인해주세요!");
+  }
+
+  // if (!jwtToken) {
+  //   alert("※ 다른 소셜로 로그인해주세요!");
+  // }
+
 }
 
 async function naverLogin() {
@@ -84,14 +107,14 @@ async function naverLogin() {
     }
   }
 
-  if (jwtToken) {
+  if (!jwtToken) {
     window.location.replace(`${backend_base_url}/users/naver/login/`);
   }
 
   const response = await fetch(`${backend_base_url}/users/naver/login/`, {
 
   });
-  
+
 }
 
 async function githubLogin() {
@@ -109,14 +132,14 @@ async function githubLogin() {
     }
   }
 
-  if (jwtToken) {
+  if (!jwtToken) {
     window.location.replace(`${backend_base_url}/users/github/login/`);
   }
 
   const response = await fetch(`${backend_base_url}/users/github/login/`, {
 
   });
-  
+
 }
 
 // function handleLogout() {
@@ -148,7 +171,7 @@ function handleLogout() {
 
 }
 
-function checkLogin(){
+function checkLogin() {
   const cookies = document.cookie.split(';');
 
   let jwtToken;
@@ -163,7 +186,7 @@ function checkLogin(){
     }
   }
 
-  if (!jwtToken){
+  if (!jwtToken) {
     window.location.replace(`${frontend_base_url}/index.html`)
   }
 }
@@ -175,10 +198,10 @@ async function handlesUserDelete() {
   const payload_parse = JSON.parse(payload)
 
   const response = await fetch(`${backend_base_url}/users/mypagelist/${payload_parse.user_id}/`, {
-      headers: {
-          "Authorization": `Bearer ${token}`
-      },
-      method: 'DELETE',
+    headers: {
+      "Authorization": `Bearer ${token}`
+    },
+    method: 'DELETE',
   })
 
   localStorage.removeItem("access")

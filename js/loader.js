@@ -24,7 +24,7 @@ async function injectNavbar() {
   }
 
   if (jwtToken){
-        const mypage = document.getElementById("mypage")
+        const mypage = document.getElementById("userdelete")
         mypage.innerText = "회원탈퇴"
         const logout = document.getElementById("logout")
         logout.innerText = "로그아웃"

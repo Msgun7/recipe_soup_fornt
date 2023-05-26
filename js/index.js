@@ -40,7 +40,7 @@ async function P_Page() {
     if (p_offset > recipe_total) {
         alert("마지막 페이지 입니다")
     } else {
-        const response = await fetch(`http://127.0.0.1:8000/recipe-list/${category_id}/${p_offset}`, {
+        const response = await fetch(`http://127.0.0.1:8000/recipe-list/${category_id}/${p_offset}/`, {
             headers: {
                 'content-type': 'application/json',
                 // 'Authorization': `Bearer ${accessToken}`
@@ -107,7 +107,7 @@ async function M_Page() {
         localStorage.setItem('page', m_offset + 8)
     }
 
-    const response = await fetch(`http://127.0.0.1:8000/recipe-list/${category_id}/${m_offset}`, {
+    const response = await fetch(`http://127.0.0.1:8000/recipe-list/${category_id}/${m_offset}/`, {
         headers: {
             'content-type': 'application/json',
             // 'Authorization': `Bearer ${accessToken}`
