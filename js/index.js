@@ -190,10 +190,6 @@ async function LastRecipe() {
                         </a>
                         `;
         $('#last_wathc_list').append(temp_html1);
-
-
-
-
     }
 }
 
