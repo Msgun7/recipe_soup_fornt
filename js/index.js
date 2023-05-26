@@ -40,7 +40,7 @@ async function P_Page() {
     if (p_offset > recipe_total) {
         alert("마지막 페이지 입니다")
     } else {
-        const response = await fetch(`http://127.0.0.1:8000/recipe-list/${category_id}/${p_offset}`, {
+        const response = await fetch(`http://127.0.0.1:8000/recipe-list/${category_id}/${p_offset}/`, {
             headers: {
                 'content-type': 'application/json',
                 // 'Authorization': `Bearer ${accessToken}`
@@ -107,7 +107,7 @@ async function M_Page() {
         localStorage.setItem('page', m_offset + 8)
     }
 
-    const response = await fetch(`http://127.0.0.1:8000/recipe-list/${category_id}/${m_offset}`, {
+    const response = await fetch(`http://127.0.0.1:8000/recipe-list/${category_id}/${m_offset}/`, {
         headers: {
             'content-type': 'application/json',
             // 'Authorization': `Bearer ${accessToken}`
@@ -161,14 +161,16 @@ async function LastRecipe() {
             method: "GET",
         });
         const response_json = await response.json()
-        console.log(response_json)
+        // console.log(response_json)
         const main_img = response_json['main_img']
         const name = response_json['name']
         const kcal = response_json['kcal']
         const tip = response_json['tip']
         const ingredients = response_json['ingredients']
 
-        let temp_html1 = `<a href="/recipe_detail.html?recipe_id=${last_watch_recipe}">
+        let temp_html1 = `
+                        <div style="text-align:center; font-size:30px; margin-bottom:30px">최근 본 레시피</div>
+                        <a href="/recipe_detail.html?recipe_id=${last_watch_recipe}">
                             <section class="cp-card content" style="height: auto; overflow:hidden; padding:10px;">
                                 <div class="thumb" style="background-image: url(${main_img}); border-radius:20%; height:300px; width:500px;
                                                         margin:30px auto 30px 20px; display: inline-block;"></div>
@@ -185,7 +187,8 @@ async function LastRecipe() {
                                     </div>
                                 </div>
                             </section>
-                        </a>`;
+                        </a>
+                        `;
         $('#last_wathc_list').append(temp_html1);
 
 

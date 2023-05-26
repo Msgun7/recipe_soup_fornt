@@ -1,15 +1,15 @@
 async function injectNavbar() {
-    fetch("/navbar.html").then(response => {
-        return response.text()
+  fetch("/navbar.html").then(response => {
+    return response.text()
+  })
+    .then(data => {
+      document.querySelector("header").innerHTML = data;
     })
-        .then(data => {
-            document.querySelector("header").innerHTML = data;
-        })
-    let navbarHtml = await fetch("/navbar.html")
-    let data = await navbarHtml.text()
-    document.querySelector("header").innerHTML = data;
+  let navbarHtml = await fetch("/navbar.html")
+  let data = await navbarHtml.text()
+  document.querySelector("header").innerHTML = data;
 
-    const cookies = document.cookie.split(';');
+  const cookies = document.cookie.split(';');
 
   let jwtToken;
 
@@ -23,20 +23,15 @@ async function injectNavbar() {
     }
   }
 
-  if (jwtToken){
-        const mypage = document.getElementById("mypage")
-        mypage.innerText = "회원탈퇴"
-        const logout = document.getElementById("logout")
-        logout.innerText = "로그아웃"
-        let loginButton = document.getElementById("login-button")
-        loginButton.style.display = "none";
-        let signupButton = document.getElementById("signup-button")
-        signupButton.style.display = "none";
-    }
+  if (jwtToken) {
+    const userdelete = document.getElementById("userdelete")
+    userdelete.innerText = "회원탈퇴"
+    const logout = document.getElementById("logout")
+    logout.innerText = "로그아웃"
+    let loginButton = document.getElementById("login-button")
+    loginButton.style.display = "none";
+    let signupButton = document.getElementById("signup-button")
+    signupButton.style.display = "none";
+  }
 }
 injectNavbar();
-
-
-
-
-
