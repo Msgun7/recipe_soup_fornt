@@ -521,7 +521,10 @@ ul.navba2 li {
   font-size: 17px;
 }
 
-/* nav */
+
+/* 추가한 css */
+
 .navbar .nav-item.dropdown li {
   margin-left: 0px;
 }
+
