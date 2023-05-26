@@ -109,7 +109,7 @@ async function githubLogin() {
     }
   }
 
-  if (jwtToken) {
+  if (!jwtToken) {
     window.location.replace(`${backend_base_url}/users/github/login/`);
   }
 

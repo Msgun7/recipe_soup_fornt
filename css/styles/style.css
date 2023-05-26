@@ -520,3 +520,8 @@ ul.navba2 li {
   margin-left: 8px;
   font-size: 17px;
 }
+
+/* nav */
+.navbar .nav-item.dropdown li {
+  margin-left: 0px;
+}
