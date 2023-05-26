@@ -47,27 +47,27 @@ async function injectNavbar() {
 
 injectNavbar()
 
-async function adminUser() {
-    const accessToken = localStorage.getItem('access')
+// async function adminUser() {
+//     const accessToken = localStorage.getItem('access')
 
-    const payload = localStorage.getItem("payload");
-    const payload_parse = JSON.parse(payload)
-    const user_id = payload_parse['user_id']
-    const response = await fetch(`http://127.0.0.1:8000/users/mypagelist/${user_id}/`, {
-        headers: {
-            'content-type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`,
-        },
-        method: 'GET',
-    })
-    let admin = await response.json()
-    if (admin['is_admin']) {
-        is_admin = admin['is_admin']
-        return true
-    } else {
-        return false
-    }
-}
+//     const payload = localStorage.getItem("payload");
+//     const payload_parse = JSON.parse(payload)
+//     const user_id = payload_parse['user_id']
+//     const response = await fetch(`http://127.0.0.1:8000/users/mypagelist/${user_id}/`, {
+//         headers: {
+//             'content-type': 'application/json',
+//             'Authorization': `Bearer ${accessToken}`,
+//         },
+//         method: 'GET',
+//     })
+//     let admin = await response.json()
+//     if (admin['is_admin']) {
+//         is_admin = admin['is_admin']
+//         return true
+//     } else {
+//         return false
+//     }
+// }
 
 
 
