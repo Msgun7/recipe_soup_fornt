@@ -228,13 +228,7 @@ async function githubLogin() {
 
 }
 
-// function handleLogout() {
-//   localStorage.removeItem("access");
-//   localStorage.removeItem("refresh");
-//   localStorage.removeItem("payload");
 
-//   window.location.replace(`${frontend_base_url}/index.html`);
-// }
 function handleLogout() {
   const cookies = document.cookie.split(';');
 
