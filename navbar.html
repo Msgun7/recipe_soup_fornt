@@ -10,11 +10,11 @@
           국/찌개
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <li><a class="dropdown-item" href="#" onclick="RoomviewBySpot(event)" id="spot1">국/찌개</a></li>
-          <li><a class="dropdown-item" href="#" onclick="RoomviewBySpot(event)" id="spot2">밥</a></li>
-          <li><a class="dropdown-item" href="#" onclick="RoomviewBySpot(event)" id="spot3">샐러드</a></li>
-          <li><a class="dropdown-item" href="#" onclick="RoomviewBySpot(event)" id="spot4">후식</a></li>
-          <li><a class="dropdown-item" href="#" onclick="RoomviewBySpot(event)" id="spot5">기타</a></li>
+          <li><a class="dropdown-item" href="#" onclick="RecipeList(event)" id="1">국&찌개</a></li>
+          <li><a class="dropdown-item" href="#" onclick="RecipeList(event)" id="2">밥</a></li>
+          <li><a class="dropdown-item" href="#" onclick="RecipeList(event)" id="3">반찬</a></li>
+          <li><a class="dropdown-item" href="#" onclick="RecipeList(event)" id="4">후식</a></li>
+          <li><a class="dropdown-item" href="#" onclick="RecipeList(event)" id="5">일품</a></li>
         </ul>
       </li>
       <li><a href="/review_list.html">모두의 후기</a></li>
@@ -23,10 +23,7 @@
 
       <li id="authorized">
         <!-- 로그인 O -->
-      <li><a href="/book_user_list.html" id="adminBookUserList"></a></li>
-      <li><a href="/room_list.html" id="adminRoomList"></a></li>
-      <li><a href="" data-bs-toggle="modal" data-bs-target="#room" id="adminRoomSave"></a></li>
-      <li class="nav-item"><a href="/my_page.html" id="mypage"></a></li>
+      <li class="nav-item"><a href="#" onclick="handlesUserDelete()" id="userdelete"></a></li>
       <li class="nav-item"><a href="#" onclick="handleLogout()" id="logout"></a></li>
       <!-- 로그인 X -->
       <li class="nav-item"><a href="" data-bs-toggle="modal" data-bs-target="#login" id="login-button">로그인</a>

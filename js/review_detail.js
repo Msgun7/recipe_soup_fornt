@@ -2,6 +2,8 @@ async function getReviewDetail() {
     const root_address = `http://127.0.0.1:8000`;
     params = new URLSearchParams(window.location.search);
     review_id = params.get("review_id");
+
+
     const response = await fetch(`http://127.0.0.1:8000/review/detail/${review_id}/`, {
 
         headers: {
@@ -10,6 +12,7 @@ async function getReviewDetail() {
         },
         method: "GET",
     });
+
 
     const response_json = await response.json()
 
@@ -43,7 +46,7 @@ async function getReviewDetail() {
                     <br>
                     <p class="content">${star}</p>
                     <p class="content">${review_content}</p>
-                    <p style="float:right;"><button class="btn btn-secondary" onclick="delete_review('${recipe_id}')">삭제</button></p>
+                    <p style="float:right;"><button class="btn btn-secondary" onclick="delete_review('${review_id}')">삭제</button></p>
                     `
     $("#review_info").append(temp_html)
     // <img class="thumb" src="/css/assets/main-bg.jpg" style="float:left; border: 2px solid #696865;">
@@ -53,8 +56,9 @@ async function getReviewDetail() {
     $("#recipe_name").append(temp_html2)
 
     if (response_json['image'] == null) {
-        let temp_html3 = `<img class="thumb" src="/assets/main-bg.jpg" style="float:left; border: 2px solid #696865; width:100%; height:100%;">`
+        let temp_html3 = `<img class="thumb" src="/css/assets/main-bg.jpg" style="float:left; border: 2px solid #696865; width:100%; height:100%;">`
         $("#review_detail_img").append(temp_html3)
+        console.log('hi')
     } else {
         let temp_html3 = `<img class="thumb" src="${image}" style="float:left; border: 2px solid #696865; width:100%; height:100%;">`
         $("#review_detail_img").append(temp_html3)
@@ -238,7 +242,7 @@ async function delete_review(review_id) {
     });
     if (response.status == 204) {
         alert("후기가 삭제되었습니다!")
-        location.replace('/recipe_list.html')
+        location.replace('/review_list.html')
     }
     else {
 
