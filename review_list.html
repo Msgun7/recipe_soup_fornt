@@ -66,40 +66,53 @@
     </div>
   </main>
   <!-- content end -->
-  <!-- 회원가입 모달창 -->
-  <div class="modal fade" id="signup" tabindex="-1" aria-labelledby="su" aria-hidden="true">
+   <!-- 회원가입 모달창 -->
+   <div class="modal fade" id="signup" tabindex="-1" aria-labelledby="su" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="su">
-            Sign up</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="container">
-          <div class="global-cont">
-            <div class="inner-cont">
-              <div class="sign-in-up">
-                <form class="sign-in-form active">
-                  <input type="text" placeholder="Email">
-                  <input type="password" placeholder="Password">
-                  <input type="submit" value="Sign up">
-                </form>
-                <div class="divider">
-                  <span>or</span>
-                </div>
-                <div class="social-login">
-                  <button class="kakao">Kakao</button>
-                  <button class="google" onclick="GoogleLogin()">Google</button>
-                  <button class="naver">Naver</button>
-                  <button class="github">GitHub</button>
-                </div>
-              </div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="su">
+                    Sign up</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-          </div>
+            <div class="container">
+                <div class="global-cont">
+                    <div class="inner-cont">
+                        <div class="sign-in-up">
+                            <form class="sign-in-form active">
+                                <input name="email" id="email" type="email" class="form-control"
+                                    placeholder="Email">
+                                <input name="password" id="Password" type="password" class="form-control"
+                                    placeholder="Password">
+                                <input name="password2" id="Password2" type="password" class="form-control"
+                                    placeholder="Password2">
+                                <div>
+                                    <button type="button" onclick="handleSignup()" class="btn btn-primary"
+                                        style="float: center">
+                                        Signup
+                                    </button>
+                                </div>
+                                <div></div>
+                                <input type="text" placeholder="Email">
+                                <input type="password" placeholder="Password">
+                                <input type="submit" value="Sign up">
+                            </form>
+                            <div class="divider">
+                                <span>or</span>
+                            </div>
+                            <div class="social-login">
+                                <button class="kakao" onclick="kakaoLogin()">Kakao</button>
+                                <button class="google" onclick="googleLogin()">Google</button>
+                                <button class="naver" onclick="naverLogin()">Naver</button>
+                                <button class="github" onclick="githubLogin()">GitHub</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
   <!-- 로그인 모달창 -->
   <div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -122,11 +135,10 @@
                   <span>or</span>
                 </div>
                 <div class="social-login">
-                  <button class="kakao" onclick="moveJwtTokenFromCookieToLocalStorage()">Kakao</button>
+                  <button class="kakao" onclick="kakaoLogin()">Kakao</button>
                   <button class="google" onclick="googleLogin()">Google</button>
-                  <button class="naver">Naver</button>
-                  <button class="github">GitHub</button>
-
+                  <button class="naver" onclick="naverLogin()">Naver</button>
+                  <button class="github" onclick="githubLogin()">GitHub</button>
                 </div>
               </div>
             </div>
