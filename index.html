@@ -64,9 +64,9 @@
                                 <form class="sign-in-form active">
                                     <input name="email" id="email" type="email" class="form-control"
                                         placeholder="Email">
-                                    <input name="password" id="Password" type="password" class="form-control"
+                                    <input name="password" id="password" type="password" class="form-control"
                                         placeholder="Password">
-                                    <input name="password2" id="Password2" type="password" class="form-control"
+                                    <input name="password2" id="password2" type="password" class="form-control"
                                         placeholder="Password2">
                                     <div>
                                         <button type="button" onclick="handleSignup()" class="btn btn-primary"
@@ -105,9 +105,15 @@
                         <div class="inner-cont">
                             <div class="sign-in-up">
                                 <form class="sign-in-form active">
-                                    <input type="text" placeholder="Email">
-                                    <input type="password" placeholder="Password">
-                                    <input type="submit" value="Sign In">
+                                    <input name="email" id="login-email" type="email" class="form-control"
+                                      placeholder="Email">
+                                  <input name="password" id="login-password" type="password" class="form-control"
+                                      placeholder="Password">
+                                      <button type="button" onclick="handleSignin()" class="btn btn-primary"
+                                          style="float: center">
+                                          Sigin
+                                      </button>
+                                  </div>
                                 </form>
                                 <div class="divider">
                                     <span>or</span>
