@@ -48,7 +48,6 @@
   </main>
   <!-- content end -->
   <!-- 회원가입 모달창 -->
-
   <div class="modal fade" id="signup" tabindex="-1" aria-labelledby="su" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -62,18 +61,12 @@
             <div class="inner-cont">
               <div class="sign-in-up">
                 <form class="sign-in-form active">
-                  <input name="email" id="email" type="email" class="form-control" placeholder="Email">
-                  <input name="password" id="Password" type="password" class="form-control" placeholder="Password">
-                  <input name="password2" id="Password2" type="password" class="form-control" placeholder="Password2">
-                  <div>
-                    <button type="button" onclick="handleSignup()" class="btn btn-primary" style="float: center">
-                      Signup
-                    </button>
+                  <input name="email" id="email" type="email" class="form-control" placeholder="email">
+                  <input name="password" id="password" type="password" class="form-control" placeholder="password">
+                  <input name="password2" id="password2" type="password" class="form-control" placeholder="password2">
+                  <div class="sign-up">
+                    <button class="signup" onclick="handleSignup()">Sign up</button>
                   </div>
-                  <div></div>
-                  <input type="text" placeholder="Email">
-                  <input type="password" placeholder="Password">
-                  <input type="submit" value="Sign up">
                 </form>
                 <div class="divider">
                   <span>or</span>
@@ -105,15 +98,18 @@
             <div class="inner-cont">
               <div class="sign-in-up">
                 <form class="sign-in-form active">
-                  <input type="text" placeholder="Email">
-                  <input type="password" placeholder="Password">
-                  <input type="submit" value="Sign In">
+                  <input name="email" id="login-email" type="email" class="form-control" placeholder="email">
+                  <input name="password" id="login-password" type="password" class="form-control"
+                    placeholder="password">
+                  <div class="sign-in">
+                    <button class="signin" onclick="handleSignin()">Sign in</button>
+                  </div>
                 </form>
                 <div class="divider">
                   <span>or</span>
                 </div>
                 <div class="social-login">
-                  <button class="kakao" onclick="KakaoLogin()">Kakao</button>
+                  <button class="kakao" onclick="">Kakao</button>
                   <button class="google" onclick="googleLogin()">Google</button>
                   <button class="naver" onclick="naverLogin()">Naver</button>
                   <button class="github" onclick="githubLogin()">GitHub</button>
