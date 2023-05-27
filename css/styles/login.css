@@ -142,8 +142,11 @@
     background-color: #36C65C;
   }
   .inner-cont .social-login button.naver::before {
-    content:"\f0e1";
-    font-family: fontAwesome;
+    content:"";
+    background-image: url('/css/assets/naver-logo.png');
+    background-size: cover; 
+    width: 40px;
+    height: 100%;
   }
   .inner-cont .social-login button.kakao::before ,
   .inner-cont .social-login button.google::before ,
