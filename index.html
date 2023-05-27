@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
+    <link href="/css/styles/login.css" rel="stylesheet" type="text/css" />
     <link href="/css/styles/style.css" rel="stylesheet" type="text/css" />
     <link href="/css/styles/theme.css" rel="stylesheet" type="text/css" />
     <link href="/css/styles/login.css" rel="stylesheet" type="text/css" />
@@ -69,8 +70,8 @@
                                     <span>or</span>
                                 </div>
                                 <div class="social-login">
-                                    <button class="kakao">Kakao</button>
-                                    <button class="google" onclick="GoogleLogin()">Google</button>
+                                    <button class="kakao" onclick="kakaoLogin()">Kakao</button>
+                                    <button class="google" onclick="googleLogin()">Google</button>
                                     <button class="naver" onclick="naverLogin()">Naver</button>
                                     <button class="github" onclick="githubLogin()">GitHub</button>
                                 </div>
@@ -107,7 +108,6 @@
                                     <button class="google" onclick="googleLogin()">Google</button>
                                     <button class="naver" onclick="naverLogin()">Naver</button>
                                     <button class="github" onclick="githubLogin()">GitHub</button>
-
                                 </div>
                             </div>
                         </div>
