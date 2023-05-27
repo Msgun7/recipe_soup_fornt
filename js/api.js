@@ -3,6 +3,27 @@
 const backend_base_url = "http://127.0.0.1:8000"
 const frontend_base_url = "http://127.0.0.1:5500"
 
+
+// const cookies = document.cookie.split(';');
+
+let jwtToken;
+
+// for (let i = 0; i < cookies.length; i++) {
+//   const cookie = cookies[i].trim();
+//   const [name, value] = cookie.split('=');
+
+//   if (name === "jwt_token") {
+//     jwtToken = value;
+//     break;
+//   }
+// }
+
+// const token = jwtToken.replace(/"/g, '').replace(/'/g, '"').replace(/\\054/g, ',')
+// const test = JSON.parse(token);
+// const access_token = test.access
+
+
+
 async function navigateToDetailPage() {
   console.log("테스트")
   // HTML에서 상세 페이지로 이동할 요소를 선택합니다.
@@ -94,7 +115,7 @@ async function handleSignin() {
 // }
 
 
-let jwtToken;
+// let jwtToken;
 
 
 // 쿠키에 있는 값을 로컬스토리지에 저장
@@ -131,7 +152,7 @@ function savePayloadToLocalStorage() {
 async function KakaoLogin() {
   const cookies = document.cookie.split(';');
 
-  let jwtToken;
+  // let jwtToken;
 
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].trim();
@@ -156,7 +177,7 @@ async function KakaoLogin() {
 async function googleLogin() {
   const cookies = document.cookie.split(';');
 
-  let jwtToken;
+  // let jwtToken;
 
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].trim();
@@ -177,7 +198,7 @@ async function googleLogin() {
 async function naverLogin() {
   const cookies = document.cookie.split(';');
 
-  let jwtToken;
+  // let jwtToken;
 
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].trim();
@@ -198,7 +219,7 @@ async function naverLogin() {
 async function githubLogin() {
   const cookies = document.cookie.split(';');
 
-  let jwtToken;
+  // let jwtToken;
 
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].trim();
@@ -219,7 +240,7 @@ async function githubLogin() {
 function handleLogout() {
   const cookies = document.cookie.split(';');
 
-  let jwtToken;
+  // let jwtToken;
 
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].trim();
@@ -242,7 +263,7 @@ function handleLogout() {
 function checkLogin() {
   const cookies = document.cookie.split(';');
 
-  let jwtToken;
+  // let jwtToken;
 
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].trim();
@@ -263,7 +284,7 @@ function checkLogin() {
 async function handlesUserDelete() {
   const cookies = document.cookie.split(';');
 
-  let jwtToken;
+  // let jwtToken;
 
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].trim();
@@ -274,12 +295,12 @@ async function handlesUserDelete() {
       break;
     }
   }
-  const token = jwtToken.replace(/"/g, '').replace(/'/g, '"').replace(/\\054/g, ',')
-  const response_json = JSON.parse(token);
-  const access_token = response_json.access
+  // const token = jwtToken.replace(/"/g, '').replace(/'/g, '"').replace(/\\054/g, ',')
+  // const response_json = JSON.parse(token);
+  // const access_token = response_json.access
   const payload = localStorage.getItem("payload");
   const payload_parse = JSON.parse(payload)
-  
+
   const response = await fetch(`${backend_base_url}/users/delete/${payload_parse.user_id}/`, {
     headers: {
       "Authorization": `Bearer ${access_token}`
@@ -332,3 +353,21 @@ function signUpsignInError() {
 
 signUpsignInError()
 savePayloadToLocalStorage()
+
+const token = jwtToken.replace(/"/g, '').replace(/'/g, '"').replace(/\\054/g, ',')
+const response_json = JSON.parse(token);
+const access_token = response_json.access
+
+const getCookieValue = (key) => {
+  const cookies = document.cookie.split(';');
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].trim();
+    const [name, value] = cookie.split('=');
+
+    if (name === "jwt_token") {
+      jwtToken = value;
+      break;
+    }
+  }
+  return jwtToken
+}

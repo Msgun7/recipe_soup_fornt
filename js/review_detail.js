@@ -34,6 +34,7 @@ async function getReviewDetail() {
     let month = (created_at.getMonth() + 1); // 월, 11[1을 더해야함. 유일하게 조심해야할 부분. 1월은 0이다.]
     let date = created_at.getDate(); // 일, 14
     let year = created_at.getFullYear()
+    console.log(response_json)
 
     let temp_html = `
                     <h3>${review_title}</h3>
@@ -75,7 +76,8 @@ async function show_comment() {
 
         headers: {
             "Content-Type": "application/json",
-            // Authorization: "Bearer " + localStorage.getItem("access"),
+            // "Authorization": `Bearer ${access_token}`
+
         },
         method: "GET",
     });

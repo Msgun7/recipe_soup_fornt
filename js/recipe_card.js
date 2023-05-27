@@ -4,14 +4,22 @@ $(document).ready(function () {
         params = new URLSearchParams(window.location.search);
         recipe_id = params.get("recipe_id");
         localStorage.setItem("last_watch_recipe", recipe_id)
+        const check_cookie = document.cookie.split(';').length
+        if (check_cookie > 1) {
+            const cookies = getCookieValue('jwtToken')
+            if (`${cookies}`) {
+                let temp = `<a a href="" class=" cp-button secondary" data-bs-toggle="modal" data-bs-target="#review"> 후기 작성</a>`
+                $("#save_review_box").append(temp)
+            }
+        }
+        let temp = `<a a href="" class=" cp-button secondary" data-bs-toggle="modal" data-bs-target="#review"> 후기 작성</a>`
+        $("#save_review_box").append(temp)
 
-        moveJwtTokenFromCookieToLocalStorage();
 
         const response = await fetch(`http://127.0.0.1:8000/recipe/${recipe_id}/`, {
 
             headers: {
                 "Content-Type": "application/json",
-                // Authorization: "Bearer " + localStorage.getItem("access"),
             },
             method: "GET",
         });
@@ -257,9 +265,6 @@ class Gallery {
 
 
 async function createReview() {
-
-
-    const accessToken = localStorage.getItem('access')
     params = new URLSearchParams(window.location.search);
     recipe_id = params.get("recipe_id");
     const title = document.getElementById("title").value;
@@ -273,10 +278,11 @@ async function createReview() {
     formData.append("content", content);
     formData.append("image", image.files[0]);
 
+    console.log(access_token)
 
     response = await fetch(`http://127.0.0.1:8000/review/${recipe_id}/`, {
         headers: {
-            'Authorization': `Bearer ${accessToken}`
+            "Authorization": `Bearer ${access_token}`,
         },
         method: 'POST',
         body: formData
