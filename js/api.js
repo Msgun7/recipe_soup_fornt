@@ -42,7 +42,9 @@ function moveJwtTokenFromCookieToLocalStorage() {
   }
 }
 
+async function kakaoLogin() {
 
+}
 
 async function googleLogin() {
   const cookies = document.cookie.split(';');
@@ -62,33 +64,6 @@ async function googleLogin() {
   if (!jwtToken) {
     window.location.replace(`${backend_base_url}/users/google/login/`);
   }
-
-  const response = await fetch(`${backend_base_url}/users/google/login/`, {
-
-  });
-
-  alert("※ 다른 소셜로 로그인해주세요!");
-
-  if (response.status === 302) {
-    alert("※ 다른 소셜로 로그인해주세요!");
-  }
-
-  if (!jwtToken) {
-    alert("※ 다른 소셜로 로그인해주세요!");
-  }
-
-  const urlParams = new URLSearchParams(window.location.search);
-  const status = urlParams.get('status_code');
-
-  console.log(status)
-
-  if (status === '400') {
-    alert("※ 다른 소셜로 로그인해주세요!");
-  }
-
-  // if (!jwtToken) {
-  //   alert("※ 다른 소셜로 로그인해주세요!");
-  // }
 
 }
 
@@ -209,3 +184,43 @@ async function handlesUserDelete() {
   localStorage.removeItem("payload")
   window.location.replace(`${frontend_base_url}/index.html`)
 }
+
+// 로그인&회원가입 오류 메세지
+function signUpsignInError() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const status = urlParams.get('status_code');
+  const error = urlParams.get('err_msg');
+
+  if (error === 'error') {
+    alert("※ 오류가 발생하였습니다. 다른 소셜 계정으로 다시 시도해주세요!");
+  }
+  if (error === 'failed_to_get') {
+    alert("※ 소셜 인증을 실패하였습니다. 다른 소셜 계정으로 다시 시도해주세요!");
+  }
+  if (status === '204') {
+    alert("※ 연결된 소셜 계정이 없습니다. 일반 로그인으로 시도해주세요!");
+  }
+  if (status === '400') {
+    alert("※ 다른 소셜로 로그인해주세요!");
+  }
+  if (error === 'failed_to_signin') {
+    alert("※ 로그인에 실패하였습니다. 다시 시도해주세요!");
+  }
+  if (error === 'kakao_signup') {
+    alert("※ 카카오에서 요청을 거부했습니다. 다른 소셜 계정으로 다시 시도해주세요!");
+  }
+  if (error === 'google_signup') {
+    alert("※ 구글에서 요청을 거부했습니다. 다른 소셜 계정으로 다시 시도해주세요!");
+  }
+  if (error === 'naver_signup') {
+    alert("※ 네이버에서 요청을 거부했습니다. 다른 소셜 계정으로 다시 시도해주세요!");
+  }
+  if (error === 'github_signup') {
+    alert("※ 깃허브에서 요청을 거부했습니다. 다른 소셜 계정으로 다시 시도해주세요!");
+  }
+  if (status === '201') {
+    alert("※ 회원가입이 완료되었습니다!");
+  }
+}
+
+signUpsignInError()
