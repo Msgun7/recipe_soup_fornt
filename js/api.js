@@ -89,7 +89,6 @@ async function handleSignin() {
 function savePayloadToLocalStorage() {
   const cookies = document.cookie.split(';');
 
-  let jwtToken;
 
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].trim();
@@ -115,7 +114,9 @@ function savePayloadToLocalStorage() {
   }
 }
 
-async function KakaoLogin() {
+
+
+async function kakaoLogin() {
   const cookies = document.cookie.split(';');
 
   let jwtToken;
