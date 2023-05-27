@@ -86,7 +86,6 @@ function applySubscribe(event) {
     SubscribeNameElement.value = "";
   }
 }
-
 document.querySelector("#basic").addEventListener("click", applySubscribe)
 document.querySelector("#premium").addEventListener("click", applySubscribe)
 

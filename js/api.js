@@ -122,6 +122,7 @@ function savePayloadToLocalStorage() {
 
     localStorage.setItem("payload", jsonPayload);
   }
+  console.log(localStorage.getItem('access'))
 }
 
 async function KakaoLogin() {
@@ -275,7 +276,7 @@ async function handlesUserDelete() {
   const access_token = response_json.access
   const payload = localStorage.getItem("payload");
   const payload_parse = JSON.parse(payload)
-  
+
   const response = await fetch(`${backend_base_url}/users/delete/${payload_parse.user_id}/`, {
     headers: {
       "Authorization": `Bearer ${access_token}`

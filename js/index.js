@@ -187,8 +187,8 @@ async function LastRecipe() {
                             </section>
                         </a>
                         `;
-        $('#last_wathc_list').append(temp_html1);
-    }
+    $('#last_wathc_list').append(temp_html1);
+  }
 }
 
 LastRecipe()
