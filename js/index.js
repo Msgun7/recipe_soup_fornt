@@ -1,7 +1,7 @@
 let category_id = "1";
 let recipe_total = 0
 // let last_page = parseInt(recipe_total / 8) + 2
-moveJwtTokenFromCookieToLocalStorage();
+// moveJwtTokenFromCookieToLocalStorage();
 
 function RecipeList(event) {
   // const accessToken = localStorage.getItem('access')
@@ -37,16 +37,16 @@ async function PageList() {
 
 async function P_Page() {
   let p_offset = localStorage.getItem('page') * 1
-  const token = jwtToken.replace(/"/g, '').replace(/'/g, '"').replace(/\\054/g, ',')
-  const accessToken = JSON.parse(token)['access'];
-  console.log(accessToken)
+  // const token = jwtToken.replace(/"/g, '').replace(/'/g, '"').replace(/\\054/g, ',')
+  // const accessToken = JSON.parse(token)['access'];
+  // console.log(accessToken)
   if (p_offset > recipe_total) {
     alert("마지막 페이지 입니다")
   } else {
     const response = await fetch(`http://127.0.0.1:8000/recipe-list/${category_id}/${p_offset}/`, {
       headers: {
         'content-type': 'application/json',
-        'Authorization': `Bearer `
+        // 'Authorization': `Bearer `
       },
       method: 'GET',
     })
