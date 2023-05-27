@@ -9,7 +9,7 @@ async function navigateToDetailPage() {
 }
 
 // 쿠키에 있는 값을 로컬스토리지에 저장
-function moveJwtTokenFromCookieToLocalStorage() {
+function savePayloadToLocalStorage() {
   const cookies = document.cookie.split(';');
 
   let jwtToken;
@@ -27,8 +27,6 @@ function moveJwtTokenFromCookieToLocalStorage() {
   if (jwtToken) {
     const token = jwtToken.replace(/"/g, '').replace(/'/g, '"').replace(/\\054/g, ',')
     const response_json = JSON.parse(token);
-    localStorage.setItem("refresh", response_json.refresh);
-    localStorage.setItem("access", response_json.access);
 
     const base64Url = response_json.access.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -37,8 +35,6 @@ function moveJwtTokenFromCookieToLocalStorage() {
     }).join(''));
 
     localStorage.setItem("payload", jsonPayload);
-
-    document.cookie = "jwt_token=; expires=Thu, 01 Jan 2023 00:00:01 UTC; path=/;";  // 쿠키 삭제
   }
 }
 
@@ -86,10 +82,6 @@ async function naverLogin() {
     window.location.replace(`${backend_base_url}/users/naver/login/`);
   }
 
-  const response = await fetch(`${backend_base_url}/users/naver/login/`, {
-
-  });
-
 }
 
 async function githubLogin() {
@@ -111,19 +103,8 @@ async function githubLogin() {
     window.location.replace(`${backend_base_url}/users/github/login/`);
   }
 
-  const response = await fetch(`${backend_base_url}/users/github/login/`, {
-
-  });
-
 }
 
-// function handleLogout() {
-//   localStorage.removeItem("access");
-//   localStorage.removeItem("refresh");
-//   localStorage.removeItem("payload");
-
-//   window.location.replace(`${frontend_base_url}/index.html`);
-// }
 function handleLogout() {
   const cookies = document.cookie.split(';');
 
@@ -140,6 +121,7 @@ function handleLogout() {
   }
 
   if (jwtToken) {
+    localStorage.removeItem("payload")
     document.cookie = "jwt_token=; expires=Thu, 01 Jan 2023 00:00:01 UTC; path=/;";  // 쿠키 삭제
     window.location.replace(`${frontend_base_url}/index.html`)
   }
@@ -168,20 +150,34 @@ function checkLogin() {
 
 // 회원탈퇴
 async function handlesUserDelete() {
-  let token = localStorage.getItem("access")
+  const cookies = document.cookie.split(';');
+
+  let jwtToken;
+
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].trim();
+    const [name, value] = cookie.split('=');
+
+    if (name === "jwt_token") {
+      jwtToken = value;
+      break;
+    }
+  }
+  const token = jwtToken.replace(/"/g, '').replace(/'/g, '"').replace(/\\054/g, ',')
+  const response_json = JSON.parse(token);
+  const access_token = response_json.access
   const payload = localStorage.getItem("payload");
   const payload_parse = JSON.parse(payload)
-
-  const response = await fetch(`${backend_base_url}/users/mypagelist/${payload_parse.user_id}/`, {
+  
+  const response = await fetch(`${backend_base_url}/users/delete/${payload_parse.user_id}/`, {
     headers: {
-      "Authorization": `Bearer ${token}`
+      "Authorization": `Bearer ${access_token}`
     },
     method: 'DELETE',
   })
 
-  localStorage.removeItem("access")
-  localStorage.removeItem("refresh")
   localStorage.removeItem("payload")
+  document.cookie = "jwt_token=; expires=Thu, 01 Jan 2023 00:00:01 UTC; path=/;";  // 쿠키 삭제
   window.location.replace(`${frontend_base_url}/index.html`)
 }
 
@@ -224,3 +220,4 @@ function signUpsignInError() {
 }
 
 signUpsignInError()
+savePayloadToLocalStorage()
