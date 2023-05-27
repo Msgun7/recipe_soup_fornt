@@ -5,7 +5,7 @@ $(document).ready(function () {
         recipe_id = params.get("recipe_id");
         localStorage.setItem("last_watch_recipe", recipe_id)
 
-        moveJwtTokenFromCookieToLocalStorage();
+        // moveJwtTokenFromCookieToLocalStorage();
 
         const response = await fetch(`http://127.0.0.1:8000/recipe/${recipe_id}/`, {
 
@@ -276,7 +276,7 @@ async function createReview() {
 
     response = await fetch(`http://127.0.0.1:8000/review/${recipe_id}/`, {
         headers: {
-            'Authorization': `Bearer ${accessToken}`
+            // 'Authorization': `Bearer ${accessToken}`
         },
         method: 'POST',
         body: formData
