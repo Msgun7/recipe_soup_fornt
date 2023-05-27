@@ -49,8 +49,8 @@ async function handleSignup() {
 
 // 로그인
 async function handleSignin() {
-  const email = document.getElementById("login-email").value
-  const password = document.getElementById("login-password").value
+  const email = document.getElementById("login_email").value
+  const password = document.getElementById("login_password").value
 
   const response = await fetch(`http://127.0.0.1:8000/users/logins/`, {
     headers: {
@@ -240,6 +240,7 @@ function checkLogin() {
   const cookies = document.cookie.split(';');
 
   let jwtToken;
+  let payload
 
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].trim();
@@ -254,6 +255,7 @@ function checkLogin() {
   if (!jwtToken) {
     window.location.replace(`${frontend_base_url}/index.html`)
   }
+
 }
 
 // 회원탈퇴
