@@ -14,7 +14,7 @@ async function handleSignup() {
   const password = document.getElementById("password").value
   const password2 = document.getElementById("password2").value
 
-  const response = await fetch(`http://127.0.0.1:8000/users/signup/`, {
+  const response = await fetch(`http://127.0.0.1:8000/users/signups/`, {
     headers: {
       'content-type': 'application/json',
     },
@@ -52,7 +52,7 @@ async function handleSignin() {
   const email = document.getElementById("login-email").value
   const password = document.getElementById("login-password").value
 
-  const response = await fetch(`http://127.0.0.1:8000/users/login/`, {
+  const response = await fetch(`http://127.0.0.1:8000/users/logins/`, {
     headers: {
       'content-type': 'application/json',
     },
