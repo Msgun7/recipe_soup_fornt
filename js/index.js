@@ -12,28 +12,10 @@ function RecipeList(event) {
 
   recipe_total = 0
   // 페이징을 위한 숫자 불러오기
-  PageList()
+  P_Page()
 }
 
 RecipeList()
-
-
-async function PageList() {
-  // 첫페이지 로드 될 때가지 기다리기 -> recipe_total 얻기 위해!
-  await P_Page()
-
-  let total_page = parseInt(recipe_total / 8) + 1
-  // console.log(total_page)
-
-  // 현재 보고 있는 페이지, 이동할 수 있는 번호, 생략해야하는 번호, 보여줄 한계치(10개? 5개?)
-  // $('#page_num_list').empty()
-  // for (step = 1; step < `${total_page + 1}`; step++) {
-  //     let page_list_html = `<a href='' id='${step}page' style="margin-left:20px; font-size:25px;">${step}</a>`
-  //     console.log(typeof (`${step}page`))
-  //     $('#page_num_list').append(page_list_html)
-  // }
-}
-
 
 async function P_Page() {
   let p_offset = localStorage.getItem('page') * 1
@@ -43,7 +25,6 @@ async function P_Page() {
     const response = await fetch(`http://127.0.0.1:8000/recipe-list/${category_id}/${p_offset}/`, {
       headers: {
         'content-type': 'application/json',
-        // 'Authorization': `Bearer ${accessToken}`
       },
       method: 'GET',
     })
@@ -161,7 +142,7 @@ async function LastRecipe() {
       method: "GET",
     });
     const response_json = await response.json()
-    console.log(response_json)
+    // console.log(response_json)
     const main_img = response_json['main_img']
     const name = response_json['name']
     const kcal = response_json['kcal']
