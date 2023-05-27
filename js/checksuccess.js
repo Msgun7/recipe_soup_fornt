@@ -23,7 +23,6 @@ for (let i = 0; i < cookies.length; i++) {
 }
 // const jwtToken = getCookie('access');
 
-// const jwttoken = localStorage.getItem('access');
 console.log(accessToken);
 
 const url = "http://127.0.0.1:8000/payments/success";
@@ -84,22 +83,3 @@ fetch(url + `?orderId=${orderId}&paymentKey=${paymentKey}&amount=${amount}`, {
     window.location.replace(`http://127.0.0.1:5500/fail.html`)
   });
 
-
-// fetch('http://127.0.0.1:8000/payments/success/')  // 서버의 URL을 적절히 변경해야 합니다.
-//   .then(response => response.json())
-//   .then(data => {
-//     // JSON 데이터를 이용하여 필요한 처리를 수행합니다.
-//     console.log(data.res);
-//     console.log(data.respaymentKey);
-//     console.log(data.resorderId);
-//     console.log(data.totalAmount);
-//     console.log(data.suppliedAmount);
-//     console.log(data.vat);
-//     console.log(data.requestedAt);
-
-//     // 추가적인 동작 수행 가능
-//   })
-//   .catch(error => {
-//     // 에러 처리
-//     console.error('Error:', error);
-//   });

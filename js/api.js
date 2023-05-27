@@ -124,7 +124,6 @@ function savePayloadToLocalStorage() {
 
     localStorage.setItem("payload", jsonPayload);
   }
-  console.log(localStorage.getItem('access'))
 }
 
 
