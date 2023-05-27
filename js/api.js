@@ -35,7 +35,7 @@ async function handleSignup() {
   const password = document.getElementById("password").value
   const password2 = document.getElementById("password2").value
 
-  const response = await fetch(`http://127.0.0.1:8000/users/signup/`, {
+  const response = await fetch(`http://127.0.0.1:8000/users/signups/`, {
     headers: {
       'content-type': 'application/json',
     },
@@ -46,6 +46,7 @@ async function handleSignup() {
       "password2": password2
     })
   })
+  console.log()
 
   if (response.status == 201) {
     document.getElementById("signup").querySelector('[data-bs-dismiss="modal"]').click();
@@ -72,7 +73,7 @@ async function handleSignin() {
   const email = document.getElementById("login-email").value
   const password = document.getElementById("login-password").value
 
-  const response = await fetch(`http://127.0.0.1:8000/users/login/`, {
+  const response = await fetch(`http://127.0.0.1:8000/users/logins/`, {
     headers: {
       'content-type': 'application/json',
     },
@@ -167,10 +168,6 @@ async function KakaoLogin() {
   if (!jwtToken) {
     window.location.replace(`${backend_base_url}/users/kakao/login/`);
   }
-
-  const response = await fetch(`${backend_base_url}/users/kakao/login/`, {
-
-  });
 
 }
 

@@ -15,7 +15,6 @@ $(document).ready(function () {
         let temp = `<a a href="" class=" cp-button secondary" data-bs-toggle="modal" data-bs-target="#review"> 후기 작성</a>`
         $("#save_review_box").append(temp)
 
-
         const response = await fetch(`http://127.0.0.1:8000/recipe/${recipe_id}/`, {
 
             headers: {
