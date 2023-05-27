@@ -85,15 +85,6 @@ async function handleSignin() {
   }
 }
 
-// // 로그아웃
-// function handleLogout() {
-//   localStorage.removeItem("access")
-//   localStorage.removeItem("refresh")
-//   localStorage.removeItem("payload")
-//   window.location.replace(`http://127.0.0.1:5500/index.html`)
-// }
-
-
 // 쿠키에 있는 값을 로컬스토리지에 저장
 function savePayloadToLocalStorage() {
   const cookies = document.cookie.split(';');
@@ -142,11 +133,6 @@ async function KakaoLogin() {
   if (!jwtToken) {
     window.location.replace(`${backend_base_url}/users/kakao/login/`);
   }
-
-  const response = await fetch(`${backend_base_url}/users/kakao/login/`, {
-
-  });
-
 }
 
 async function googleLogin() {
@@ -167,7 +153,6 @@ async function googleLogin() {
   if (!jwtToken) {
     window.location.replace(`${backend_base_url}/users/google/login/`);
   }
-
 }
 
 async function naverLogin() {
@@ -188,7 +173,6 @@ async function naverLogin() {
   if (!jwtToken) {
     window.location.replace(`${backend_base_url}/users/naver/login/`);
   }
-
 }
 
 async function githubLogin() {
@@ -209,7 +193,6 @@ async function githubLogin() {
   if (!jwtToken) {
     window.location.replace(`${backend_base_url}/users/github/login/`);
   }
-
 }
 
 function handleLogout() {
@@ -304,7 +287,7 @@ function signUpsignInError() {
     alert("※ 연결된 소셜 계정이 없습니다. 일반 로그인으로 시도해주세요!");
   }
   if (status === '400') {
-    alert("※ 다른 소셜로 로그인해주세요!");
+    alert("※ 다른 소셜로 가입된 계정입니다. 다시 로그인해주세요!");
   }
   if (error === 'failed_to_signin') {
     alert("※ 로그인에 실패하였습니다. 다시 시도해주세요!");
@@ -319,7 +302,7 @@ function signUpsignInError() {
     alert("※ 네이버에서 요청을 거부했습니다. 다른 소셜 계정으로 다시 시도해주세요!");
   }
   if (error === 'github_signup') {
-    alert("※ 깃허브에서 요청을 거부했습니다. 다른 소셜 계정으로 다시 시도해주세요!");
+    alert("※ 다른 소셜로 가입된 계정입니다. 다시 로그인해주세요!");
   }
   if (status === '201') {
     alert("※ 회원가입이 완료되었습니다!");
