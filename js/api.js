@@ -94,11 +94,13 @@ async function handleSignin() {
 // }
 
 
+let jwtToken;
+
+
 // 쿠키에 있는 값을 로컬스토리지에 저장
 function savePayloadToLocalStorage() {
   const cookies = document.cookie.split(';');
 
-  let jwtToken;
 
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].trim();
@@ -124,6 +126,8 @@ function savePayloadToLocalStorage() {
   }
   console.log(localStorage.getItem('access'))
 }
+
+
 
 async function KakaoLogin() {
   const cookies = document.cookie.split(';');
