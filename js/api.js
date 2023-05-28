@@ -23,7 +23,7 @@ async function navigateToDetailPage() {
 
   }
   else {
-    window.location.replace(`http://127.0.0.1:5500/window.html`)
+    window.location.replace(`${backend_base_url}/window.html`)
   }
 }
 
