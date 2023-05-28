@@ -11,17 +11,17 @@ async function injectNavbar() {
 
   const cookies = document.cookie.split(';');
 
-    let jwtToken;
+  let jwtToken;
 
-    for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        const [name, value] = cookie.split('=');
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].trim();
+    const [name, value] = cookie.split('=');
 
-        if (name === "jwt_token") {
-            jwtToken = value;
-            break;
-        }
+    if (name === "jwt_token") {
+      jwtToken = value;
+      break;
     }
+  }
 
 
   if (jwtToken) {
@@ -36,4 +36,3 @@ async function injectNavbar() {
   }
 }
 injectNavbar();
-
