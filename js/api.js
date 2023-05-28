@@ -23,7 +23,7 @@ async function navigateToDetailPage() {
 
   }
   else {
-    window.location.replace(`${backend_base_url}/window.html`)
+    window.location.replace(`${frontend_base_url}/window.html`)
   }
 }
 
