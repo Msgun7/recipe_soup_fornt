@@ -20,8 +20,9 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
     <script src="/js/loader.js"></script>
-    <script src="/js/ai_image.js"></script>
     <script src="/js/api.js"></script>
+    <script src="/js/index.js"></script>
+    <script src="/js/ai_image.js"></script>
 </head>
 
 <body>
@@ -39,16 +40,18 @@
         </div>
         <div class=" content-list max-content-width">
             <div class="header">
-                <h2>AI재료 판독</h2>
+                <h2>🤖AI재료 판독</h2>
             </div>
+            <p>원하는 재료 사진을 넣어주세요!
+                <br>저희 레시피숲의 AI 쿡마스터가 재료를 판독하여 레시피를 추천해드립니다!</p>
                 <div class="ai_image_show" id="ai_image_show">
-                    <p>아직 재료를 넣지 않음</p>
+                    <p>여기에 나옴</p>
                 </div>
                 <div class="input-group">
                     <form id="uploadForm" enctype="multipart/form-data">
                         <input type="file" class="form-control" id="imageInput" aria-describedby="inputGroupFileAddon04"
                             aria-label="Upload">
-                        <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon04">Upload하기</button>
+                        <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Upload하기</button>
                     </form>
                 </div>
                 <div>
