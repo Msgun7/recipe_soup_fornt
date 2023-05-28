@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    // moveJwtTokenFromCookieToLocalStorage();
     getRecipeDetail()
     async function getRecipeDetail() {
         params = new URLSearchParams(window.location.search);
@@ -10,10 +9,7 @@ $(document).ready(function () {
             let temp = `<a a href="" class=" cp-button secondary" data-bs-toggle="modal" data-bs-target="#review"> 후기 작성</a>`
             $("#save_review_box").append(temp)
         }
-        let temp = `<a a href="" class=" cp-button secondary" data-bs-toggle="modal" data-bs-target="#review"> 후기 작성</a>`
-        $("#save_review_box").append(temp)
         const response = await fetch(`http://127.0.0.1:8000/recipe/${recipe_id}/`, {
-
 
             headers: {
                 "Content-Type": "application/json",
@@ -279,20 +275,16 @@ async function createReview() {
 
     response = await fetch(`http://127.0.0.1:8000/review/${recipe_id}/`, {
         headers: {
-            // 'Authorization': `Bearer ${accessToken}`
+            "Authorization": `Bearer ${access_token}`,
         },
         method: 'POST',
         body: formData
     })
-
-
         .then(response => response.json())
 
         .then(data => {
             alert("후기가 등록되었습니다.");
             window.location.reload();
-
-
         })
 
 
