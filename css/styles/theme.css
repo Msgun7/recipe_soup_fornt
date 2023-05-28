@@ -4,6 +4,7 @@
   font-family: "Spoqa Han Sans Neo", sans-serif;
 }
 
+
 :root {
   --text: #2f2c28;
   --link: #ffcc00;
@@ -336,4 +337,26 @@ textarea.cp-input {
 .cp-icon.small {
   width: 18px;
   height: 18px;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  .site-body {
+    background: rgba(0, 0, 0, 0.823);
+    color: white;
+  }
+
+  .cp-card {
+    background: rgba(122, 121, 121, 0.404);
+    color: white;
+  }
+
+  #review_info {
+    background: rgba(91, 89, 89, 0.404);
+    color: white;
+  }
+
+  .back-link {
+    color: white;
+  }
 }

@@ -1,3 +1,14 @@
+// payload를 모두 문자열로 가져오기
+let storage = localStorage.getItem('payload');
+// 가져온 paylad(JSON 문자열)를 객체, 배열로 변환
+const personObj = JSON.parse(storage);
+console.log(personObj);
+let user_id;
+// username 키의 값만 가져오기
+if (personObj) {
+    user_id = personObj['user_id'];
+}
+
 async function getReviewDetail() {
     const root_address = `http://127.0.0.1:8000`;
     params = new URLSearchParams(window.location.search);
@@ -26,7 +37,6 @@ async function getReviewDetail() {
     const review_title = response_json['title']
     const review_content = response_json['content']
     const review_created_at = response_json['created_at']
-    // const review_recipe_name = response_json['recipe_name']
     const star = stars[response_json['star']]
     let image = root_address + response_json["image"];
     const recipe_id = response_json['recipe']
@@ -34,21 +44,24 @@ async function getReviewDetail() {
     let month = (created_at.getMonth() + 1); // 월, 11[1을 더해야함. 유일하게 조심해야할 부분. 1월은 0이다.]
     let date = created_at.getDate(); // 일, 14
     let year = created_at.getFullYear()
+    let user_name = response_json['user_name']
+    let user = response_json['user']
     console.log(response_json)
 
     let temp_html = `
                     <h3>${review_title}</h3>
                     <div style="float: left; margin-bottom:20px">
-                        <h5>작성자</h5>
-                    </div>
-                    <div style="float: right;">
-                        <h5>${year}.${month}.${date}</h5>
+                        <h5>${user_name}</h5>
                     </div>
                     <br>
                     <p class="content">${star}</p>
                     <p class="content">${review_content}</p>
-                    <p style="float:right;"><button class="btn btn-secondary" onclick="delete_review('${review_id}')">삭제</button></p>
+                    <div style="float: right;">
+                        <h5>${year}.${month}.${date}</h5>
+                    </div>
                     `
+    console.log(user, user_id)
+
     $("#review_info").append(temp_html)
     // <img class="thumb" src="/css/assets/main-bg.jpg" style="float:left; border: 2px solid #696865;">
 
@@ -65,6 +78,10 @@ async function getReviewDetail() {
         $("#review_detail_img").append(temp_html3)
     }
 
+    if (user == user_id) {
+        let delete_review = `<p style="float:right;"><button class="btn btn-secondary" onclick="delete_review('${review_id}')">삭제</button></p>`
+        $('#delete_review_box').append(delete_review)
+    }
 }
 
 getReviewDetail()
@@ -76,8 +93,6 @@ async function show_comment() {
 
         headers: {
             "Content-Type": "application/json",
-            // "Authorization": `Bearer ${access_token}`
-
         },
         method: "GET",
     });
@@ -86,14 +101,15 @@ async function show_comment() {
     $('#comment_box').empty()
     response_json.forEach((a) => {
         const comment = a['comment']
-        // const user = a['user']
         const comment_id = a['id']
         let created_at = new Date(a['created_at']);
         let month = (created_at.getMonth() + 1); // 월, 11[1을 더해야함. 유일하게 조심해야할 부분. 1월은 0이다.]
         let date = created_at.getDate(); // 일, 14
         let year = created_at.getFullYear()
-        // <div class="thumb" style="background-image: url(${main_img}); border-radius:20%">
-        let temp_html1 = `
+        let user = a['user_name']
+        console.log(a)
+        if (user == user_id) {
+            let temp_html1 = `
                         <div class="media" style="padding: 20px">
                             <div>
                                 <div style="float: left">
@@ -105,14 +121,30 @@ async function show_comment() {
                                     <button class="btn btn-secondary" onclick="delete_comment('${comment_id}')">삭제</button>
                                 </div>
                                 <div style="float: right;">
-                                    <h5 style="font-size: 15px">작성자 : kmy9810(${year}.${month}.${date})</h5>
+                                    <h5 style="font-size: 15px">${user}(${year}.${month}.${date})</h5>
                                 </div>
                             </div>
                         </div><br>
                         <hr>
                         `;
-        $('#comment_box').append(temp_html1);
-        // 작성한 유저면 수정삭제 보이게! -> 추가예정
+            $('#comment_box').append(temp_html1);
+        } else {
+            let temp_html2 = `
+                                <div class="media" style="padding: 20px">
+                                    <div>
+                                        <div style="float: left">
+                                            <h5>${comment}</h5>
+                                        </div>
+                                        <br><br>
+                                        <div style="float: right;">
+                                            <h5 style="font-size: 15px">${user}(${year}.${month}.${date})</h5>
+                                        </div>
+                                    </div>
+                                </div><br>
+                                <hr>
+                            `;
+            $('#comment_box').append(temp_html2);
+        }
     })
 
 }
@@ -124,11 +156,16 @@ async function save_comment() {
     params = new URLSearchParams(window.location.search);
     review_id = params.get("review_id");
     const comment = document.getElementById("comment").value
+    const access_token = localStorage.getItem('access')
+    if (!access_token) {
+        alert('로그인 후 사용해 주세요!')
+        return false
+    }
     const response = await fetch(`http://127.0.0.1:8000/review/comment/${review_id}/`, {
 
         headers: {
             "Content-Type": "application/json",
-            // Authorization: "Bearer " + localStorage.getItem("access"),
+            "Authorization": `Bearer ${access_token}`
         },
         method: "POST",
         body: JSON.stringify({
@@ -156,11 +193,12 @@ async function save_comment() {
 
 
 async function delete_comment(comment_id) {
+    const access_token = localStorage.getItem('access')
     const response = await fetch(`http://127.0.0.1:8000/review/comment/${comment_id}/`, {
 
         headers: {
             "Content-Type": "application/json",
-            // Authorization: "Bearer " + localStorage.getItem("access"),
+            "Authorization": `Bearer ${access_token}`
         },
         method: "DELETE",
     });
@@ -203,11 +241,12 @@ async function patch_comment(comment_id) {
     if (comment == '') {
         comment = document.getElementById('comment').placeholder
     }
+    const access_token = localStorage.getItem('access')
 
     const response = await fetch(`http://127.0.0.1:8000/review/comment/${comment_id}/`, {
         headers: {
             "Content-Type": "application/json",
-            // Authorization: "Bearer " + localStorage.getItem("access"),
+            "Authorization": `Bearer ${access_token}`
         },
         method: "PATCH",
         body: JSON.stringify({
@@ -238,7 +277,6 @@ async function delete_review(review_id) {
 
         headers: {
             "Content-Type": "application/json",
-            // Authorization: "Bearer " + localStorage.getItem("access"),
         },
         method: "DELETE",
     });

@@ -1,26 +1,8 @@
-
 // 기본 URL
 const backend_base_url = "http://127.0.0.1:8000"
 const frontend_base_url = "http://127.0.0.1:5500"
 
-
-// const cookies = document.cookie.split(';');
-
 let jwtToken;
-
-// for (let i = 0; i < cookies.length; i++) {
-//   const cookie = cookies[i].trim();
-//   const [name, value] = cookie.split('=');
-
-//   if (name === "jwt_token") {
-//     jwtToken = value;
-//     break;
-//   }
-// }
-
-// const token = jwtToken.replace(/"/g, '').replace(/'/g, '"').replace(/\\054/g, ',')
-// const test = JSON.parse(token);
-// const access_token = test.access
 
 
 
@@ -40,6 +22,7 @@ async function navigateToDetailPage() {
     window.location.replace(`http://127.0.0.1:5500/window.html`)
   }
 }
+
 
 async function handleSignup() {
   const email = document.getElementById("email").value
@@ -81,8 +64,8 @@ async function handleSignup() {
 
 // 로그인
 async function handleSignin() {
-  const email = document.getElementById("login-email").value
-  const password = document.getElementById("login-password").value
+  const email = document.getElementById("login_email").value
+  const password = document.getElementById("login_password").value
 
   const response = await fetch(`http://127.0.0.1:8000/users/logins/`, {
     headers: {
@@ -118,22 +101,9 @@ async function handleSignin() {
   }
 }
 
-// // 로그아웃
-// function handleLogout() {
-//   localStorage.removeItem("access")
-//   localStorage.removeItem("refresh")
-//   localStorage.removeItem("payload")
-//   window.location.replace(`http://127.0.0.1:5500/index.html`)
-// }
-
-
-// let jwtToken;
-
-
 // 쿠키에 있는 값을 로컬스토리지에 저장
 function savePayloadToLocalStorage() {
   const cookies = document.cookie.split(';');
-
 
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].trim();
@@ -148,6 +118,7 @@ function savePayloadToLocalStorage() {
   if (jwtToken) {
     const token = jwtToken.replace(/"/g, '').replace(/'/g, '"').replace(/\\054/g, ',')
     const response_json = JSON.parse(token);
+    const access_token = response_json.access
 
     const base64Url = response_json.access.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -155,16 +126,32 @@ function savePayloadToLocalStorage() {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
 
+    localStorage.setItem("access", access_token);
     localStorage.setItem("payload", jsonPayload);
   }
 }
 
+async function KakaoSignup() {
+  const cookies = document.cookie.split(';');
 
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].trim();
+    const [name, value] = cookie.split('=');
+
+    if (name === "jwt_token") {
+      jwtToken = value;
+      break;
+    }
+  }
+
+  if (!jwtToken) {
+    alert("※ 카카오 계정으로 회원가입을 원하신다면 이메일 제공 선택에 꼭 동의해주세요!!")
+    window.location.replace(`${backend_base_url}/users/kakao/login/`);
+  }
+}
 
 async function KakaoLogin() {
   const cookies = document.cookie.split(';');
-
-  // let jwtToken;
 
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].trim();
@@ -179,13 +166,10 @@ async function KakaoLogin() {
   if (!jwtToken) {
     window.location.replace(`${backend_base_url}/users/kakao/login/`);
   }
-
 }
 
 async function googleLogin() {
   const cookies = document.cookie.split(';');
-
-  // let jwtToken;
 
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].trim();
@@ -200,13 +184,10 @@ async function googleLogin() {
   if (!jwtToken) {
     window.location.replace(`${backend_base_url}/users/google/login/`);
   }
-
 }
 
 async function naverLogin() {
   const cookies = document.cookie.split(';');
-
-  // let jwtToken;
 
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].trim();
@@ -221,13 +202,10 @@ async function naverLogin() {
   if (!jwtToken) {
     window.location.replace(`${backend_base_url}/users/naver/login/`);
   }
-
 }
 
 async function githubLogin() {
   const cookies = document.cookie.split(';');
-
-  // let jwtToken;
 
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].trim();
@@ -242,13 +220,11 @@ async function githubLogin() {
   if (!jwtToken) {
     window.location.replace(`${backend_base_url}/users/github/login/`);
   }
-
 }
 
 function handleLogout() {
+  const payload = localStorage.getItem("payload");
   const cookies = document.cookie.split(';');
-
-  // let jwtToken;
 
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].trim();
@@ -260,7 +236,9 @@ function handleLogout() {
     }
   }
 
-  if (jwtToken) {
+  if (jwtToken || payload) {
+    localStorage.removeItem("access")
+    localStorage.removeItem("refresh")
     localStorage.removeItem("payload")
     document.cookie = "jwt_token=; expires=Thu, 01 Jan 2023 00:00:01 UTC; path=/;";  // 쿠키 삭제
     window.location.replace(`${frontend_base_url}/index.html`)
@@ -269,43 +247,16 @@ function handleLogout() {
 }
 
 function checkLogin() {
-  const cookies = document.cookie.split(';');
-
-  // let jwtToken;
-
-  for (let i = 0; i < cookies.length; i++) {
-    const cookie = cookies[i].trim();
-    const [name, value] = cookie.split('=');
-
-    if (name === "jwt_token") {
-      jwtToken = value;
-      break;
-    }
-  }
-
-  if (!jwtToken) {
+  const payload = localStorage.getItem("payload");
+  if (!payload) {
     window.location.replace(`${frontend_base_url}/index.html`)
   }
 }
 
+
 // 회원탈퇴
 async function handlesUserDelete() {
-  const cookies = document.cookie.split(';');
-
-  // let jwtToken;
-
-  for (let i = 0; i < cookies.length; i++) {
-    const cookie = cookies[i].trim();
-    const [name, value] = cookie.split('=');
-
-    if (name === "jwt_token") {
-      jwtToken = value;
-      break;
-    }
-  }
-  // const token = jwtToken.replace(/"/g, '').replace(/'/g, '"').replace(/\\054/g, ',')
-  // const response_json = JSON.parse(token);
-  // const access_token = response_json.access
+  const access_token = localStorage.getItem("access");
   const payload = localStorage.getItem("payload");
   const payload_parse = JSON.parse(payload)
 
@@ -315,10 +266,18 @@ async function handlesUserDelete() {
     },
     method: 'DELETE',
   })
-
-  localStorage.removeItem("payload")
-  document.cookie = "jwt_token=; expires=Thu, 01 Jan 2023 00:00:01 UTC; path=/;";  // 쿠키 삭제
-  window.location.replace(`${frontend_base_url}/index.html`)
+  if (response.status == 204) {
+    alert("※ 회원탈퇴가 정상적으로 완료되었습니다!")
+    localStorage.removeItem("access")
+    localStorage.removeItem("refresh")
+    localStorage.removeItem("payload")
+    document.cookie = "jwt_token=; expires=Thu, 01 Jan 2023 00:00:01 UTC; path=/;";  // 쿠키 삭제
+    location.reload()
+  }
+  if (response.status == 403) {
+    alert("※ 권한이 없습니다!")
+    location.reload()
+  }
 }
 
 // 로그인&회원가입 오류 메세지
@@ -337,7 +296,7 @@ function signUpsignInError() {
     alert("※ 연결된 소셜 계정이 없습니다. 일반 로그인으로 시도해주세요!");
   }
   if (status === '400') {
-    alert("※ 다른 소셜로 로그인해주세요!");
+    alert("※ 다른 소셜로 가입된 계정입니다. 다시 로그인해주세요!");
   }
   if (error === 'failed_to_signin') {
     alert("※ 로그인에 실패하였습니다. 다시 시도해주세요!");
@@ -352,7 +311,7 @@ function signUpsignInError() {
     alert("※ 네이버에서 요청을 거부했습니다. 다른 소셜 계정으로 다시 시도해주세요!");
   }
   if (error === 'github_signup') {
-    alert("※ 깃허브에서 요청을 거부했습니다. 다른 소셜 계정으로 다시 시도해주세요!");
+    alert("※ 다른 소셜로 가입된 계정입니다. 다시 로그인해주세요!");
   }
   if (status === '201') {
     alert("※ 회원가입이 완료되었습니다!");
@@ -361,10 +320,6 @@ function signUpsignInError() {
 
 signUpsignInError()
 savePayloadToLocalStorage()
-
-const token = jwtToken.replace(/"/g, '').replace(/'/g, '"').replace(/\\054/g, ',')
-const response_json = JSON.parse(token);
-const access_token = response_json.access
 
 const getCookieValue = (key) => {
   const cookies = document.cookie.split(';');
@@ -391,6 +346,7 @@ async function CheckSubscription() {
     alert("구독 후 사용가능합니다!");
     window.location.replace(`${frontend_base_url}/index_pay.html`)
   }
+
 }
 
 
@@ -443,6 +399,4 @@ async function Refresh_user_data() {
 
 
 }
-
 Check_user_data();
-// Refresh_user_data();

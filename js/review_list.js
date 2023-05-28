@@ -12,8 +12,9 @@ async function ReviewList() {
     const response_json = await response.json()
     $('#recipe_list').empty()
     response_json.forEach((a) => {
+        console.log(a)
         const title = a['title']
-        // const user = a['user']
+        const recipe = a['recipe_name']
         let stars = {
             "1": "⭐️",
             "2": "⭐️⭐️",
@@ -42,7 +43,7 @@ async function ReviewList() {
                                                 </span>
                                             </div>
                                             <div class="review-author">
-                                                <span>작성자</span>
+                                                <span>${recipe}</span>
                                             </div>
                                         </div>
                                     </div>

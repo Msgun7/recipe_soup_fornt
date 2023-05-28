@@ -1,14 +1,14 @@
 let category_id = "1";
 let recipe_total = 0
-// let last_page = parseInt(recipe_total / 8) + 2
-// moveJwtTokenFromCookieToLocalStorage();
 
 function RecipeList(event) {
-  // const accessToken = localStorage.getItem('access')
-  if (event && event.target) {
-    category_id = event.target.id.slice(-1);
-  }
   localStorage.setItem("page", 0)
+  const url = new URLSearchParams(window.location.search)
+  const category = url.get("category_id")
+
+  if (category) {
+    category_id = category
+  }
 
   recipe_total = 0
   // 페이징을 위한 숫자 불러오기
