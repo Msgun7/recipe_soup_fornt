@@ -4,6 +4,9 @@ let recipe_total = 0
 // moveJwtTokenFromCookieToLocalStorage();
 
 function RecipeList(event) {
+  const url = new URLSearchParams(window.location.search)
+  console.log(url.get("recipe_id"))
+
   // const accessToken = localStorage.getItem('access')
   if (event && event.target) {
     category_id = event.target.id.slice(-1);
@@ -14,6 +17,10 @@ function RecipeList(event) {
   // 페이징을 위한 숫자 불러오기
   P_Page()
 }
+// if (url.get("recipe_id")) {
+// } else {
+// RecipeList()
+// }
 
 RecipeList()
 
