@@ -425,16 +425,24 @@ async function Check_user_data() {
     },
   })
 
-  // .then(response => response.json())
-  // .then(data => {
-  //   // 서버로부터 받은 데이터 처리
-  //   const subscription = data;
-  //   console.log(subscription)
-  // })
-  // .catch(error => {
-  //   // 에러 처리
-  // });
+    .then(response => response.json())
+    .then(data => {
+      // 서버로부터 받은 데이터 처리
+      const subscription = data;
+      console.log(subscription)
+    })
+    .catch(error => {
+      // 에러 처리
+    });
+}
+
+async function Refresh_user_data() {
+
+
+
 
 
 }
+
 Check_user_data();
+// Refresh_user_data();

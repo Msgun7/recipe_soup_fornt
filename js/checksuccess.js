@@ -49,6 +49,7 @@ fetch(url + `?orderId=${orderId}&paymentKey=${paymentKey}&amount=${amount}`, {
 })
   .then(response => response.json())
   .then(data => {// 응답 결과 처리
+
     $('#payments-info').empty();
     const suppliedAmount = data.suppliedAmount;
     console.log(data, "테스트");
