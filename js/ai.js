@@ -87,4 +87,4 @@ function extraSearch(result_data) {
   search(new_data)
 }
 
-checkSubscribe()
+// checkSubscribe()
