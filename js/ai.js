@@ -86,3 +86,5 @@ function extraSearch(result_data) {
   const new_data = `${result},${extra}`
   search(new_data)
 }
+
+checkSubscribe()

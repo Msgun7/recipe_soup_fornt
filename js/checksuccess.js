@@ -4,26 +4,8 @@ const orderId = urlParams.get('orderId');
 const amount = urlParams.get('amount');
 const paymentKey = urlParams.get('paymentKey');
 // 쿠키에서 액세스 JWT 토큰 가져오기
-const cookies = document.cookie.split(';');
-
-let jwtToken;
-let accessToken;
-
-for (let i = 0; i < cookies.length; i++) {
-  const cookie = cookies[i].trim();
-  const [name, value] = cookie.split('=');
-
-  if (name === "jwt_token") {
-    jwtToken = value;
-    console.log(jwtToken)
-    const cookieObject = JSON.parse(jwtToken.replace(/"/g, '').replace(/'/g, '"').replace(/\\054/g, ','));
-    accessToken = cookieObject.access;
-    break;
-  }
-}
-// const jwtToken = getCookie('access');
-
-console.log(accessToken);
+const access_token = localStorage.getItem("access");
+const isSubscribe = localStorage.getItem("is_subscribe");
 
 const url = "http://127.0.0.1:8000/payments/success";
 const secretKey = "test_sk_qLlDJaYngroLz95eAom8ezGdRpXx";
@@ -33,7 +15,7 @@ const encodedU = window.btoa(userpass);
 const headers = {
   "Authorization": "Basic " + encodedU,
   "Content-Type": "application/json",
-  "Authorization-Token": accessToken  // 액세스 토큰 값 설정
+  "Authorization-Token": `Bearer ${access_token}`  // 액세스 토큰 값 설정
 };
 
 const params = {
@@ -73,10 +55,10 @@ fetch(url + `?orderId=${orderId}&paymentKey=${paymentKey}&amount=${amount}`, {
                   <p class="content">구독종료일 : ${end_date}</p>
                   `
     $('#payments-info').append(temp_html)
-
-
-
   })
+
+  localStorage.setItem("is_subscribe", "true")
+  
   .catch(error => {
     // 에러 처리
     console.error(error);
