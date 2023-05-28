@@ -17,6 +17,7 @@ async function navigateToDetailPage() {
   console.log(Obj_is_subscribe)
   if (Obj_is_subscribe) {
     alert("이미 구독 중입니다!")
+
   }
   else {
     window.location.replace(`http://127.0.0.1:5500/window.html`)
@@ -396,6 +397,19 @@ async function Check_user_data() {
       "Authorization-Token": accessToken  // 액세스 토큰 값 설정
     },
   })
+
+    .then(response => response.json())
+    .then(data => {
+      // 서버로부터 받은 데이터 처리
+      const subscription = data;
+      console.log(subscription)
+    })
+    .catch(error => {
+      // 에러 처리
+    });
 }
-// Check_user_data();
+
+
+Check_user_data();
+
 
