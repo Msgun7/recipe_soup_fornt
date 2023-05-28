@@ -36,6 +36,7 @@ const headers = {
   "Authorization-Token": accessToken  // 액세스 토큰 값 설정
 };
 
+
 const params = {
   "orderId": orderId,
   "amount": amount,
@@ -74,10 +75,10 @@ fetch(url + `?orderId=${orderId}&paymentKey=${paymentKey}&amount=${amount}`, {
                   <p class="content">구독종료일 : ${end_date}</p>
                   `
     $('#payments-info').append(temp_html)
-
-
-
   })
+
+localStorage.setItem("is_subscribe", "true")
+
   .catch(error => {
     // 에러 처리
     console.error(error);

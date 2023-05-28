@@ -17,6 +17,7 @@ async function navigateToDetailPage() {
   console.log(Obj_is_subscribe)
   if (Obj_is_subscribe) {
     alert("이미 구독 중입니다!")
+
   }
   else {
     window.location.replace(`http://127.0.0.1:5500/window.html`)
@@ -91,8 +92,10 @@ async function handleSignin() {
     const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''))
+    const isSubscribe = Boolean(jsonPayload.is_subscribe);
 
     localStorage.setItem('payload', jsonPayload)
+    localStorage.setItem('is_subscribe', isSubscribe.toString());
     document.getElementById("login").querySelector('[data-bs-dismiss="modal"]').click();
     location.reload()
   }
@@ -125,9 +128,11 @@ function savePayloadToLocalStorage() {
     const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
+    const isSubscribe = Boolean(jsonPayload.is_subscribe);
 
     localStorage.setItem("access", access_token);
     localStorage.setItem("payload", jsonPayload);
+    localStorage.setItem("is_subscribe", isSubscribe.toString());
   }
 }
 
@@ -240,6 +245,7 @@ function handleLogout() {
     localStorage.removeItem("access")
     localStorage.removeItem("refresh")
     localStorage.removeItem("payload")
+    localStorage.removeItem("is_subscribe")
     document.cookie = "jwt_token=; expires=Thu, 01 Jan 2023 00:00:01 UTC; path=/;";  // 쿠키 삭제
     window.location.replace(`${frontend_base_url}/index.html`)
   }
@@ -248,6 +254,8 @@ function handleLogout() {
 
 function checkLogin() {
   const payload = localStorage.getItem("payload");
+  const isSubscribe = localStorage.getItem("is_subscribe");
+
   if (!payload) {
     window.location.replace(`${frontend_base_url}/index.html`)
   }
@@ -271,6 +279,7 @@ async function handlesUserDelete() {
     localStorage.removeItem("access")
     localStorage.removeItem("refresh")
     localStorage.removeItem("payload")
+    localStorage.removeItem("is_subscribe")
     document.cookie = "jwt_token=; expires=Thu, 01 Jan 2023 00:00:01 UTC; path=/;";  // 쿠키 삭제
     location.reload()
   }
@@ -335,18 +344,25 @@ const getCookieValue = (key) => {
   return jwtToken
 }
 
-async function CheckSubscription() {
-  const payloadData = localStorage.getItem("payload")
-  const payloadObj = JSON.parse(payloadData); // JSON 문자열을 JavaScript 객체로 변환
-  const checkObj = payloadObj.is_subscribe;
-  console.log(checkObj)
-  console.log(payloadObj)
+// Ai기능사용관련
+function checkSubscribe() {
+  const isSubscribe = localStorage.getItem("is_subscribe");
 
-  if (!checkObj) {
-    alert("구독 후 사용가능합니다!");
-    window.location.replace(`${frontend_base_url}/index_pay.html`)
+  if (isSubscribe === "false") {
+    window.location.replace(`${frontend_base_url}/index.html`)
+  }
+}
+
+function handleAi() {
+  const isSubscribe = localStorage.getItem("is_subscribe");
+
+  if (isSubscribe === "false") {
+    alert("※ 🤖AI기능을 사용하시려면 멤버십 구독을 해주세요!")
   }
 
+  if (isSubscribe === "true") {
+    window.location.replace(`${frontend_base_url}/aipage.html`)
+  }
 }
 
 
@@ -392,11 +408,6 @@ async function Check_user_data() {
     });
 }
 
-async function Refresh_user_data() {
 
-
-
-
-
-}
 Check_user_data();
+
