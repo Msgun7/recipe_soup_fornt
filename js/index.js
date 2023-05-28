@@ -13,36 +13,9 @@ function RecipeList(event) {
   recipe_total = 0
   // 페이징을 위한 숫자 불러오기
   P_Page()
-
 }
 
-function index() {
-  window.location.replace(`${frontend_base_url}/index.html`)
-}
-
-// function RecipeList(event) {
-
-//   if (event && event.target) {
-//     category_id = event.target.id.slice(-1);
-//     window.location.replace(`${frontend_base_url}/index.html`)
-//   }
-//   localStorage.setItem("page", 0)
-
-//   recipe_total = 0
-
-//   setTimeout(() => {
-
-
-//     P_Page()
-//   }, 1000); // 
-// }
-
-// index.html에서만 바로 실행이 되도록
-const currentURL = window.location.href;
-if (currentURL === "http://127.0.0.1:5500/index.html") {
-  // 특정 함수 호출
-  RecipeList()
-}
+RecipeList()
 
 async function P_Page() {
   if (window.location.pathname.endsWith("/index.html")) {
@@ -62,7 +35,6 @@ async function P_Page() {
       if (recipe_total == 0) {
         recipe_total = response_json['total']
       }
-
 
       $('#recipe_list').empty()
 
@@ -103,7 +75,7 @@ async function P_Page() {
     //     target_num.style.color = "blue";
     //     target_num.style.fontSize = "30px";
     // }
-  }else {
+  } else {
     window.location.href = `http://127.0.0.1:5500/index.html?category_id=${category_id}`;
   }
 }
