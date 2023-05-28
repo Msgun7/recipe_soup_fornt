@@ -23,7 +23,7 @@ async function navigateToDetailPage() {
 
   }
   else {
-    window.location.replace(`http://127.0.0.1:5500/window.html`)
+    window.location.replace(`${frontend_base_url}/window.html`)
   }
 }
 
@@ -288,7 +288,6 @@ async function handlesUserDelete() {
     localStorage.removeItem("refresh")
     localStorage.removeItem("payload")
     localStorage.removeItem("is_subscribe")
-    localStorage.removeItem("is_subscribe")
     document.cookie = "jwt_token=; expires=Thu, 01 Jan 2023 00:00:01 UTC; path=/;";  // 쿠키 삭제
     location.reload()
   }
@@ -387,7 +386,7 @@ async function Check_user_data() {
   // 클라이언트에서 API 요청 보내는 예시 (JavaScript)
   const access_token = localStorage.getItem("access");
 
-  const url = 'https://soeun.net/payments/api/subscription/';  // API 엔드포인트 URL
+  const url = `${backend_base_url}/payments/api/subscription/`;  // API 엔드포인트 URL
 
   fetch(url, {
     method: 'GET',
