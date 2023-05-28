@@ -387,7 +387,7 @@ async function Check_user_data() {
   // 클라이언트에서 API 요청 보내는 예시 (JavaScript)
   const access_token = localStorage.getItem("access");
 
-  const url = 'https://soeun.net/payments/api/subscription/';  // API 엔드포인트 URL
+  const url = 'https://api.soeun.net/payments/api/subscription/';  // API 엔드포인트 URL
 
   fetch(url, {
     method: 'GET',
@@ -409,5 +409,3 @@ async function Check_user_data() {
 
 
 Check_user_data();
-
-
