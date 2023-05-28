@@ -1,7 +1,10 @@
-async function navigateToDetailPage() {
-    console.log("테스트")
-    // HTML에서 상세 페이지로 이동할 요소를 선택합니다.
-    window.location.replace(`http://127.0.0.1:5500/window.html`)
+function checkSubscribe2() {
+  const isSubscribe = JSON.parse(localStorage.getItem("payload"))['is_subscribe'];
+
+  if (isSubscribe === true) {
+    window.location.replace(`${frontend_base_url}/index.html`)
   }
+}
 
 checkLogin()
+checkSubscribe2()

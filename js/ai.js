@@ -87,4 +87,5 @@ function extraSearch(result_data) {
   search(new_data)
 }
 
-// checkSubscribe()
+checkLogin()
+checkSubscribe()
