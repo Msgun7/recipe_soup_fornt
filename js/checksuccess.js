@@ -13,7 +13,7 @@ const encodedU = window.btoa(userpass);
 const headers = {
   "Authorization": "Basic " + encodedU,
   "Content-Type": "application/json",
-  "Authorization-Token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg0ODg3MzQyLCJpYXQiOjE2ODQ4ODcwNDIsImp0aSI6ImNiNDQ3NTUxZGRkZDQ4YjE5NmRiM2VlZThlMTMwYzkxIiwidXNlcl9pZCI6MSwiZW1haWwiOiJ0ZXN0QHRlc3QuY29tIiwidXNlcm5hbWUiOiJzb2V1biJ9.5NXOEPSw7j9xiUIP5hViKR_LzZN3YVmsu6xLQVX06aM`  // 액세스 토큰 값 설정
+  "Authorization-Token": `${access_token}`  // 액세스 토큰 값 설정
 
 };
 

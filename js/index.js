@@ -4,6 +4,11 @@ let recipe_total = 0
 // moveJwtTokenFromCookieToLocalStorage();
 
 function RecipeList(event) {
+  const url = new URLSearchParams(window.location.search)
+  console.log(url.get("recipe_id"))
+  // if (url.get("recipe_id")) {
+  //   location.href = '/'
+  // }
   // const accessToken = localStorage.getItem('access')
   if (event && event.target) {
     category_id = event.target.id.slice(-1);
