@@ -9,8 +9,8 @@ let paymentData = ["공통", "카드", "가상계좌", "계좌이체", "휴대�
 let path = "/";
 let successUrl = "http://127.0.0.1:5500/success.html";
 let failUrl = "http://127.0.0.1:5500/fail.html";
-// let successUrl = window.location.origin + path + "payments/success";
-// let failUrl = window.location.origin + path + "payments/fail";
+
+
 paymentData["공통"] = {
   "amount": "",
   "orderId": "",
@@ -63,6 +63,7 @@ paymentData["휴대폰"] = {
   "mobileCarrier": null // [NOTE] 테스트 환경에서 동작 X
 }
 
+// 체크박스  value값 변경
 function applySubscribe(event) {
   const checkbox = event.target;
   const amount = checkbox.dataset.amount;
@@ -89,6 +90,13 @@ function applySubscribe(event) {
 document.querySelector("#basic").addEventListener("click", applySubscribe)
 document.querySelector("#premium").addEventListener("click", applySubscribe)
 
+// 구매자 정보로 value 값 변경
+const payloadData = localStorage.getItem("payload")
+const payloadObj = JSON.parse(payloadData); // JSON 문자열을 JavaScript 객체로 변환
+const Objemail = payloadObj.email;
+
+const CustomerNameElement = document.querySelector("#customerName");
+CustomerNameElement.value = Objemail;
 
 
 // {% comment %} ================== '결제' Btn Event ================== {% endcomment %}
