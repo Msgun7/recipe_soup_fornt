@@ -6,7 +6,7 @@ const paymentKey = urlParams.get('paymentKey');
 // 쿠키에서 액세스 JWT 토큰 가져오기
 const access_token = localStorage.getItem("access");
 
-const url = "http://127.0.0.1:8000/payments/success";
+const url = `${backend_base_url}/payments/success`;
 const secretKey = "test_sk_qLlDJaYngroLz95eAom8ezGdRpXx";
 const userpass = secretKey + ':';
 const encodedU = window.btoa(userpass);

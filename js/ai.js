@@ -47,7 +47,7 @@ init()
 
 async function search(result_data) {
   search_data = result_data
-  const response = await fetch(`http://127.0.0.1:8000/search/`, {
+  const response = await fetch(`${backend_base_url}/search/`, {
     headers: {
       'content-type': 'application/json',
     },

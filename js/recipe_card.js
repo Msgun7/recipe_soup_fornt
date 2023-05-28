@@ -9,7 +9,7 @@ $(document).ready(function () {
             let temp = `<a a href="" class=" cp-button secondary" data-bs-toggle="modal" data-bs-target="#review"> 후기 작성</a>`
             $("#save_review_box").append(temp)
         }
-        const response = await fetch(`http://127.0.0.1:8000/recipe/${recipe_id}/`, {
+        const response = await fetch(`${backend_base_url}/recipe/${recipe_id}/`, {
 
             headers: {
                 "Content-Type": "application/json",
@@ -260,6 +260,7 @@ class Gallery {
 async function createReview() {
     params = new URLSearchParams(window.location.search);
     recipe_id = params.get("recipe_id");
+    console.log(recipe_id)
     const title = document.getElementById("title").value;
     const star = parseInt(document.getElementById("star").value);
     const content = document.getElementById("content").value;
@@ -273,7 +274,7 @@ async function createReview() {
 
     console.log(access_token)
 
-    response = await fetch(`http://127.0.0.1:8000/review/${recipe_id}/`, {
+    response = await fetch(`${backend_base_url}/review/${recipe_id}/`, {
         headers: {
             "Authorization": `Bearer ${access_token}`,
         },
@@ -281,13 +282,10 @@ async function createReview() {
         body: formData
     })
         .then(response => response.json())
-
         .then(data => {
             alert("후기가 등록되었습니다.");
             window.location.reload();
         })
-
-
         .catch(error => {
             alert("에러가 발생했습니다.");
         });

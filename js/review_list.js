@@ -1,7 +1,7 @@
 async function ReviewList() {
     // const accessToken = localStorage.getItem('access')
-    const root_address = `http://127.0.0.1:8000`;
-    const response = await fetch(`http://127.0.0.1:8000/review/`, {
+    const root_address = `${backend_base_url}`;
+    const response = await fetch(`${backend_base_url}/review/`, {
         headers: {
             'content-type': 'application/json',
             // 'Authorization': `Bearer ${accessToken}`
@@ -42,9 +42,6 @@ async function ReviewList() {
                                                 ${year}.${month}.${date}
                                                 </span>
                                             </div>
-                                            <div class="review-author">
-                                                <span>${recipe}</span>
-                                            </div>
                                         </div>
                                     </div>
                                 </section>
@@ -62,9 +59,6 @@ async function ReviewList() {
                                             <span class="cp-stars" style="font-size:15px;">
                                             ${year}.${month}.${date}
                                             </span>
-                                        </div>
-                                        <div class="review-author">
-                                            <span>작성자</span>
                                         </div>
                                     </div>
                                 </div>
