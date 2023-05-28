@@ -108,6 +108,7 @@ async function show_comment() {
         let year = created_at.getFullYear()
         let user = a['user_name']
         console.log(a)
+        console.log(user)
         if (user == user_id) {
             let temp_html1 = `
                         <div class="media" style="padding: 20px">
