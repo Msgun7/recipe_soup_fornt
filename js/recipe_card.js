@@ -274,7 +274,7 @@ async function createReview() {
     const star = parseInt(document.getElementById("star").value);
     const content = document.getElementById("content").value;
     const image = document.getElementById("image");
-
+    const access_token = localStorage.getItem('access')
     const formData = new FormData();
     formData.append("title", title,);
     formData.append("star", star);

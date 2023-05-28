@@ -9,6 +9,7 @@ async function injectNavbar() {
   let data = await navbarHtml.text()
   document.querySelector("header").innerHTML = data;
 
+  const payload = localStorage.getItem("payload");
   const cookies = document.cookie.split(';');
 
   let jwtToken;
@@ -23,8 +24,7 @@ async function injectNavbar() {
     }
   }
 
-
-  if (jwtToken) {
+  if (jwtToken || payload) {
     const userdelete = document.getElementById("userdelete")
     userdelete.innerText = "회원탈퇴"
     const logout = document.getElementById("logout")
@@ -34,5 +34,6 @@ async function injectNavbar() {
     let signupButton = document.getElementById("signup-button")
     signupButton.style.display = "none";
   }
+
 }
 injectNavbar();

@@ -26,7 +26,6 @@ async function getReviewDetail() {
     const review_title = response_json['title']
     const review_content = response_json['content']
     const review_created_at = response_json['created_at']
-    // const review_recipe_name = response_json['recipe_name']
     const star = stars[response_json['star']]
     let image = root_address + response_json["image"];
     const recipe_id = response_json['recipe']
@@ -34,6 +33,7 @@ async function getReviewDetail() {
     let month = (created_at.getMonth() + 1); // 월, 11[1을 더해야함. 유일하게 조심해야할 부분. 1월은 0이다.]
     let date = created_at.getDate(); // 일, 14
     let year = created_at.getFullYear()
+    let user = response_json['user']
     console.log(response_json)
 
     let temp_html = `
