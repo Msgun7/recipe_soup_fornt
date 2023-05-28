@@ -57,17 +57,16 @@ fetch(url + `?orderId=${orderId}&paymentKey=${paymentKey}&amount=${amount}`, {
                   <p class="content">구독종료일 : ${end_date}</p>
                   `
     $('#payments-info').append(temp_html)
+
+    localStorage.setItem("is_subscribe", "true")
+    alert('로그인을 다시 해주세요!')
+    localStorage.removeItem("access")
+    localStorage.removeItem("refresh")
+    localStorage.removeItem("payload")
+    localStorage.removeItem("is_subscribe")
+    document.cookie = "jwt_token=; expires=Thu, 01 Jan 2023 00:00:01 UTC; path=/;";  // 쿠키 삭제
+    window.location.replace(`http://127.0.0.1:5500/index.html`)
   })
-
-  // localStorage.setItem("is_subscribe", "true")
-  // // alert('로그인을 다시 해주세요!')
-  // // localStorage.removeItem("access")
-  // // localStorage.removeItem("refresh")
-  // // localStorage.removeItem("payload")
-  // // localStorage.removeItem("is_subscribe")
-  // document.cookie = "jwt_token=; expires=Thu, 01 Jan 2023 00:00:01 UTC; path=/;";  // 쿠키 삭제
-  // window.location.replace(`http://127.0.0.1:5500/index.html`)
-
   .catch(error => {
     // 에러 처리
     console.error(error);
