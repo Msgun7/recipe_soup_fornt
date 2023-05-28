@@ -244,6 +244,7 @@ function handleLogout() {
     localStorage.removeItem("access")
     localStorage.removeItem("refresh")
     localStorage.removeItem("payload")
+    localStorage.removeItem("is_subscribe")
     document.cookie = "jwt_token=; expires=Thu, 01 Jan 2023 00:00:01 UTC; path=/;";  // 쿠키 삭제
     window.location.replace(`${frontend_base_url}/index.html`)
   }
@@ -277,6 +278,7 @@ async function handlesUserDelete() {
     localStorage.removeItem("access")
     localStorage.removeItem("refresh")
     localStorage.removeItem("payload")
+    localStorage.removeItem("is_subscribe")
     document.cookie = "jwt_token=; expires=Thu, 01 Jan 2023 00:00:01 UTC; path=/;";  // 쿠키 삭제
     location.reload()
   }
@@ -358,7 +360,8 @@ function handleAi() {
   }
 
   if (isSubscribe === "true") {
-  window.location.replace(`${frontend_base_url}/aipage.html`)}
+    window.location.replace(`${frontend_base_url}/aipage.html`)
+  }
 }
 
 
@@ -369,7 +372,7 @@ async function Check_user_data() {
 
   let jwtToken;
   let accessToken;
-  
+
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].trim();
     const [name, value] = cookie.split('=');
