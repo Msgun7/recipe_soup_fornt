@@ -354,13 +354,14 @@ function checkSubscribe() {
 }
 
 function handleAi() {
-  const isSubscribe = localStorage.getItem("is_subscribe");
+  const isSubscribe = JSON.parse(localStorage.getItem("payload"))['is_subscribe'];
 
-  if (isSubscribe === "false") {
+
+  if (isSubscribe === false) {
     alert("※ 🤖AI기능을 사용하시려면 멤버십 구독을 해주세요!")
   }
 
-  if (isSubscribe === "true") {
+  if (isSubscribe === true) {
     window.location.replace(`${frontend_base_url}/aipage.html`)
   }
 }
@@ -410,4 +411,5 @@ async function Check_user_data() {
 
 
 Check_user_data();
+
 
