@@ -31,6 +31,7 @@ async function predict() {
   result_data = pensByColors[0]['className']
   result = `당신이 선택한 재료는 ${result_data}입니다!`
   $('#result_data').append(result)
+  $('#extra_data').empty()
   btn = `
           <input id="extra" name="extra" type="text" class="form-control" placeholder="재료 추가하기~"
           style="width: 80%; height:50px; float:left;">
@@ -86,4 +87,4 @@ function extraSearch(result_data) {
   search(new_data)
 }
 
-checkSubscribe()
+// checkSubscribe()
