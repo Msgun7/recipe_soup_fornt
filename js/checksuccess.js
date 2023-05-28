@@ -5,7 +5,6 @@ const amount = urlParams.get('amount');
 const paymentKey = urlParams.get('paymentKey');
 // 쿠키에서 액세스 JWT 토큰 가져오기
 const access_token = localStorage.getItem("access");
-const isSubscribe = localStorage.getItem("is_subscribe");
 
 const url = "http://127.0.0.1:8000/payments/success";
 const secretKey = "test_sk_qLlDJaYngroLz95eAom8ezGdRpXx";
@@ -15,7 +14,7 @@ const encodedU = window.btoa(userpass);
 const headers = {
   "Authorization": "Basic " + encodedU,
   "Content-Type": "application/json",
-  "Authorization-Token": `Bearer ${access_token}`  // 액세스 토큰 값 설정
+  "Authorization-Token": access_token  // 액세스 토큰 값 설정
 };
 
 const params = {
@@ -56,8 +55,6 @@ fetch(url + `?orderId=${orderId}&paymentKey=${paymentKey}&amount=${amount}`, {
                   `
     $('#payments-info').append(temp_html)
   })
-
-  localStorage.setItem("is_subscribe", "true")
   
   .catch(error => {
     // 에러 처리

@@ -71,10 +71,8 @@ async function handleSignin() {
     const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''))
-    const isSubscribe = Boolean(jsonPayload.is_subscribe);
 
     localStorage.setItem('payload', jsonPayload)
-    localStorage.setItem('is_subscribe', isSubscribe.toString());
     document.getElementById("login").querySelector('[data-bs-dismiss="modal"]').click();
     location.reload()
   }
@@ -107,12 +105,18 @@ function savePayloadToLocalStorage() {
     const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
-    const isSubscribe = Boolean(jsonPayload.is_subscribe);
 
     localStorage.setItem("access", access_token);
     localStorage.setItem("payload", jsonPayload);
-    localStorage.setItem("is_subscribe", isSubscribe.toString());
   }
+}
+
+function savePayIsSubscribe() {
+  const payload = localStorage.getItem("payload");
+  const payload_parse = JSON.parse(payload)
+  const isSubscribe = payload_parse.is_subscribe
+
+  localStorage.setItem("is_subscribe", isSubscribe);
 }
 
 async function KakaoSignup() {
@@ -224,6 +228,7 @@ function handleLogout() {
     localStorage.removeItem("access")
     localStorage.removeItem("refresh")
     localStorage.removeItem("payload")
+    localStorage.removeItem("is_subscribe")
     document.cookie = "jwt_token=; expires=Thu, 01 Jan 2023 00:00:01 UTC; path=/;";  // 쿠키 삭제
     window.location.replace(`${frontend_base_url}/index.html`)
   }
@@ -232,7 +237,6 @@ function handleLogout() {
 
 function checkLogin() {
   const payload = localStorage.getItem("payload");
-  const isSubscribe = localStorage.getItem("is_subscribe");
 
   if (!payload) {
     window.location.replace(`${frontend_base_url}/index.html`)
@@ -256,6 +260,7 @@ async function handlesUserDelete() {
     localStorage.removeItem("access")
     localStorage.removeItem("refresh")
     localStorage.removeItem("payload")
+    localStorage.removeItem("is_subscribe")
     document.cookie = "jwt_token=; expires=Thu, 01 Jan 2023 00:00:01 UTC; path=/;";  // 쿠키 삭제
     location.reload()
   }
@@ -305,6 +310,8 @@ function signUpsignInError() {
 
 signUpsignInError()
 savePayloadToLocalStorage()
+savePayIsSubscribe()
+
 
 const getCookieValue = (key) => {
   const cookies = document.cookie.split(';');
@@ -322,20 +329,25 @@ const getCookieValue = (key) => {
 
 // Ai기능사용관련
 function checkSubscribe() {
-  const isSubscribe = localStorage.getItem("is_subscribe");
+  const payload = localStorage.getItem("payload");
+  const payload_parse = JSON.parse(payload)
+  const isSubscribe = payload_parse.is_subscribe
 
-  if (isSubscribe === "false") {
+  if (isSubscribe === false) {
     window.location.replace(`${frontend_base_url}/index.html`)
   }
 }
 
 function handleAi() {
-  const isSubscribe = localStorage.getItem("is_subscribe");
+  const payload = localStorage.getItem("payload");
+  const payload_parse = JSON.parse(payload)
+  const isSubscribe = payload_parse.is_subscribe
 
-  if (isSubscribe === "false") {
+  if (isSubscribe === false) {
     alert("※ 🤖AI기능을 사용하시려면 멤버십 구독을 해주세요!")
   }
 
-  if (isSubscribe === "true") {
-  window.location.replace(`${frontend_base_url}/aipage.html`)}
+  if (isSubscribe === true) {
+    window.location.replace(`${frontend_base_url}/aipage.html`)
+  }
 }
