@@ -86,7 +86,6 @@ function applySubscribe(event) {
     SubscribeNameElement.value = "";
   }
 }
-
 document.querySelector("#basic").addEventListener("click", applySubscribe)
 document.querySelector("#premium").addEventListener("click", applySubscribe)
 
@@ -101,9 +100,11 @@ document.getElementById("requestPayment").addEventListener('click', function () 
     .catch(function (error) {
       // 응답 처리 (https://docs.tosspayments.com/reference/js-sdk#응답-처리)
       if (error.code === 'USER_CANCEL') {
+        alert("결제를 취소하였습니다");
         // 결제 고객이 결제창을 닫았을 때 에러 처리
       } else if (error.code === 'INVALID_CARD_COMPANY') {
         // 유효하지 않은 카드 코드에 대한 에러 처리
+        alert("유효하지 않습니다");
       }
     })
 })

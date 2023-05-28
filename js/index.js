@@ -4,6 +4,9 @@ let recipe_total = 0
 
 
 function RecipeList(event) {
+  const url = new URLSearchParams(window.location.search)
+  console.log(url.get("recipe_id"))
+
   // const accessToken = localStorage.getItem('access')
   
   if (event && event.target) {
@@ -16,6 +19,10 @@ function RecipeList(event) {
   P_Page()
 
 }
+// if (url.get("recipe_id")) {
+// } else {
+// RecipeList()
+// }
 
 function index() {
   window.location.replace(`${frontend_base_url}/index.html`)
@@ -39,11 +46,11 @@ function index() {
 // }
 
 // index.html에서만 바로 실행이 되도록
-// const currentURL = window.location.href;
-// if (currentURL === "http://127.0.0.1:5500/index.html") {
-//   // 특정 함수 호출
-//   RecipeList()
-// }
+const currentURL = window.location.href;
+if (currentURL === "http://127.0.0.1:5500/index.html") {
+  // 특정 함수 호출
+  RecipeList()
+}
 
 async function P_Page() {
   if (window.location.pathname.endsWith("/index.html")) {
