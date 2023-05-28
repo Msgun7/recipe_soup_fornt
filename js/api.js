@@ -71,8 +71,10 @@ async function handleSignin() {
     const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''))
+    const isSubscribe = Boolean(jsonPayload.is_subscribe);
 
     localStorage.setItem('payload', jsonPayload)
+    localStorage.setItem('is_subscribe', isSubscribe.toString());
     document.getElementById("login").querySelector('[data-bs-dismiss="modal"]').click();
     location.reload()
   }
@@ -105,9 +107,11 @@ function savePayloadToLocalStorage() {
     const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
+    const isSubscribe = Boolean(jsonPayload.is_subscribe);
 
     localStorage.setItem("access", access_token);
     localStorage.setItem("payload", jsonPayload);
+    localStorage.setItem("is_subscribe", isSubscribe.toString());
   }
 }
 
@@ -228,6 +232,7 @@ function handleLogout() {
 
 function checkLogin() {
   const payload = localStorage.getItem("payload");
+  const isSubscribe = localStorage.getItem("is_subscribe");
 
   if (!payload) {
     window.location.replace(`${frontend_base_url}/index.html`)
@@ -245,7 +250,7 @@ async function handlesUserDelete() {
       "Authorization": `Bearer ${access_token}`
     },
     method: 'DELETE',
-  }) 
+  })
   if (response.status == 204) {
     alert("※ 회원탈퇴가 정상적으로 완료되었습니다!")
     localStorage.removeItem("access")
@@ -315,3 +320,22 @@ const getCookieValue = (key) => {
   return jwtToken
 }
 
+// Ai기능사용관련
+function checkSubscribe() {
+  const isSubscribe = localStorage.getItem("is_subscribe");
+
+  if (isSubscribe === "false") {
+    window.location.replace(`${frontend_base_url}/index.html`)
+  }
+}
+
+function handleAi() {
+  const isSubscribe = localStorage.getItem("is_subscribe");
+
+  if (isSubscribe === "false") {
+    alert("※ 🤖AI기능을 사용하시려면 멤버십 구독을 해주세요!")
+  }
+
+  if (isSubscribe === "true") {
+  window.location.replace(`${frontend_base_url}/aipage.html`)}
+}
