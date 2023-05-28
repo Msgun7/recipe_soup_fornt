@@ -4,13 +4,16 @@ const frontend_base_url = "http://127.0.0.1:5500"
 
 let jwtToken;
 
-
-
 async function navigateToDetailPage() {
   console.log("테스트")
   // HTML에서 상세 페이지로 이동할 요소를 선택합니다.
 
   const payloadData = localStorage.getItem("payload")
+
+  if (!payloadData) {
+    alert("회원가입 또는 로그인을 해주세요!")
+  }
+
   const payloadObj = JSON.parse(payloadData); // JSON 문자열을 JavaScript 객체로 변환
   const Obj_is_subscribe = payloadObj.is_subscribe;
 
@@ -353,9 +356,7 @@ const getCookieValue = (key) => {
 
 // Ai기능사용관련
 function checkSubscribe() {
-  const payload = localStorage.getItem("payload");
-  const payload_parse = JSON.parse(payload)
-  const isSubscribe = payload_parse.is_subscribe
+  const isSubscribe = JSON.parse(localStorage.getItem("payload"))['is_subscribe'];
 
   if (isSubscribe === false) {
     window.location.replace(`${frontend_base_url}/index.html`)
@@ -363,8 +364,14 @@ function checkSubscribe() {
 }
 
 function handleAi() {
-  const isSubscribe = JSON.parse(localStorage.getItem("payload"))['is_subscribe'];
+  const payload = localStorage.getItem("payload");
 
+  if (!payload) {
+    alert("※ 🤖AI기능을 사용하시려면 로그인을 해주세요!")
+  }
+
+  const isSubscribe = JSON.parse(localStorage.getItem("payload"))['is_subscribe'];
+  
   if (isSubscribe === false) {
     alert("※ 🤖AI기능을 사용하시려면 멤버십 구독을 해주세요!")
   }
@@ -372,37 +379,19 @@ function handleAi() {
   if (isSubscribe === true) {
     window.location.replace(`${frontend_base_url}/aipage.html`)
   }
-}
 
+}
 
 async function Check_user_data() {
   // 클라이언트에서 API 요청 보내는 예시 (JavaScript)
-
-  const cookies = document.cookie.split(';');
-
-  let jwtToken;
-  let accessToken;
-
-  for (let i = 0; i < cookies.length; i++) {
-    const cookie = cookies[i].trim();
-    const [name, value] = cookie.split('=');
-
-    if (name === "jwt_token") {
-      jwtToken = value;
-      const cookieObject = JSON.parse(jwtToken.replace(/"/g, '').replace(/'/g, '"').replace(/\\054/g, ','));
-      accessToken = cookieObject.access;
-      break;
-    }
-  }
-  // const jwtToken = getCookie('access');
-
-
+  const access_token = localStorage.getItem("access");
+  
   const url = 'http://127.0.0.1:8000/payments/api/subscription/';  // API 엔드포인트 URL
 
   fetch(url, {
     method: 'GET',
     headers: {
-      "Authorization-Token": accessToken  // 액세스 토큰 값 설정
+      "Authorization-Token": `${access_token}`   // 액세스 토큰 값 설정
     },
   })
 
