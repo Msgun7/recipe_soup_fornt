@@ -17,7 +17,12 @@ function RecipeList(event) {
 
 RecipeList()
 
+
+// function getQueryString어떻게 __?? 음...
+
 async function P_Page() {
+  if (window.location.pathname.endsWith("/index.html")) {
+
   let p_offset = localStorage.getItem('page') * 1
   if (p_offset > recipe_total) {
     alert("마지막 페이지 입니다")
@@ -73,7 +78,10 @@ async function P_Page() {
   //     target_num.style.color = "blue";
   //     target_num.style.fontSize = "30px";
   // }
-
+  }else {
+    // If the current URL is not index.html, load index.html and execute the function
+    window.location.href = 'index.html';
+    }
 }
 
 
