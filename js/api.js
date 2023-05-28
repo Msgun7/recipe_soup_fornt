@@ -4,6 +4,26 @@ const frontend_base_url = "http://127.0.0.1:5500"
 
 let jwtToken;
 
+
+
+async function navigateToDetailPage() {
+  console.log("테스트")
+  // HTML에서 상세 페이지로 이동할 요소를 선택합니다.
+
+  const payloadData = localStorage.getItem("payload")
+  const payloadObj = JSON.parse(payloadData); // JSON 문자열을 JavaScript 객체로 변환
+  const Obj_is_subscribe = payloadObj.is_subscribe;
+
+  console.log(Obj_is_subscribe)
+  if (Obj_is_subscribe) {
+    alert("이미 구독 중입니다!")
+  }
+  else {
+    window.location.replace(`http://127.0.0.1:5500/window.html`)
+  }
+}
+
+
 async function handleSignup() {
   const email = document.getElementById("email").value
   const password = document.getElementById("password").value
@@ -44,8 +64,8 @@ async function handleSignup() {
 
 // 로그인
 async function handleSignin() {
-  const email = document.getElementById("login-email").value
-  const password = document.getElementById("login-password").value
+  const email = document.getElementById("login_email").value
+  const password = document.getElementById("login_password").value
 
   const response = await fetch(`http://127.0.0.1:8000/users/logins/`, {
     headers: {
@@ -239,6 +259,7 @@ function checkLogin() {
   }
 }
 
+
 // 회원탈퇴
 async function handlesUserDelete() {
   const access_token = localStorage.getItem("access");
@@ -339,3 +360,38 @@ function handleAi() {
   if (isSubscribe === "true") {
   window.location.replace(`${frontend_base_url}/aipage.html`)}
 }
+
+
+async function Check_user_data() {
+  // 클라이언트에서 API 요청 보내는 예시 (JavaScript)
+
+  const cookies = document.cookie.split(';');
+
+  let jwtToken;
+  let accessToken;
+  
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].trim();
+    const [name, value] = cookie.split('=');
+
+    if (name === "jwt_token") {
+      jwtToken = value;
+      const cookieObject = JSON.parse(jwtToken.replace(/"/g, '').replace(/'/g, '"').replace(/\\054/g, ','));
+      accessToken = cookieObject.access;
+      break;
+    }
+  }
+  // const jwtToken = getCookie('access');
+
+
+  const url = 'http://127.0.0.1:8000/payments/api/subscription/';  // API 엔드포인트 URL
+
+  fetch(url, {
+    method: 'GET',
+    headers: {
+      "Authorization-Token": accessToken  // 액세스 토큰 값 설정
+    },
+  })
+}
+Check_user_data();
+
