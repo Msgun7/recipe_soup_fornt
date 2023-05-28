@@ -22,7 +22,7 @@ async function P_Page() {
   if (p_offset > recipe_total) {
     alert("마지막 페이지 입니다")
   } else {
-    const response = await fetch(`http://127.0.0.1:8000/recipe-list/${category_id}/${p_offset}/`, {
+    const response = await fetch(`${backend_base_url}/recipe-list/${category_id}/${p_offset}/`, {
       headers: {
         'content-type': 'application/json',
       },
@@ -66,13 +66,6 @@ async function P_Page() {
   $('#page_num').empty()
   let page_num_html = `<h5>${p_offset / 8 + 1} 페이지 / ${parseInt(recipe_total / 8) + 1} 페이지</h5>`
   $('#page_num').append(page_num_html);
-  //해당 번호 a태그 css 변경
-  // let target_num = document.getElementById(`${p_offset / 8 + 1}page`)
-  // console.log(target_num)
-  // if (target_num != null) {
-  //     target_num.style.color = "blue";
-  //     target_num.style.fontSize = "30px";
-  // }
 
 }
 
@@ -87,7 +80,7 @@ async function M_Page() {
     localStorage.setItem('page', m_offset + 8)
   }
 
-  const response = await fetch(`http://127.0.0.1:8000/recipe-list/${category_id}/${m_offset}/`, {
+  const response = await fetch(`${backend_base_url}/recipe-list/${category_id}/${m_offset}/`, {
     headers: {
       'content-type': 'application/json',
       // 'Authorization': `Bearer ${accessToken}`
@@ -132,7 +125,7 @@ async function M_Page() {
 async function LastRecipe() {
   if (localStorage.getItem('last_watch_recipe') != null) {
     let last_watch_recipe = localStorage.getItem('last_watch_recipe')
-    const response = await fetch(`http://127.0.0.1:8000/recipe/${last_watch_recipe}/`, {
+    const response = await fetch(`${backend_base_url}/recipe/${last_watch_recipe}/`, {
 
       headers: {
         "Content-Type": "application/json",

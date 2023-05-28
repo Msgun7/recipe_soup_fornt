@@ -1,6 +1,6 @@
 // 기본 URL
-const backend_base_url = "http://127.0.0.1:8000"
-const frontend_base_url = "http://127.0.0.1:5500"
+const backend_base_url = "https://api.soeun.net"
+const frontend_base_url = "https://soeun.net"
 
 let jwtToken;
 
@@ -33,7 +33,7 @@ async function handleSignup() {
   const password = document.getElementById("password").value
   const password2 = document.getElementById("password2").value
 
-  const response = await fetch(`http://127.0.0.1:8000/users/signups/`, {
+  const response = await fetch(`${backend_base_url}/users/signups/`, {
     headers: {
       'content-type': 'application/json',
     },
@@ -68,10 +68,10 @@ async function handleSignup() {
 
 // 로그인
 async function handleSignin() {
-  const email = document.getElementById("login_email").value
-  const password = document.getElementById("login_password").value
+  const email = document.getElementById("login-email").value
+  const password = document.getElementById("login-password").value
 
-  const response = await fetch(`http://127.0.0.1:8000/users/logins/`, {
+  const response = await fetch(`${backend_base_url}/users/logins/`, {
     headers: {
       'content-type': 'application/json',
     },
@@ -118,6 +118,7 @@ function savePayloadToLocalStorage() {
       break;
     }
   }
+
 
   if (jwtToken) {
     const token = jwtToken.replace(/"/g, '').replace(/'/g, '"').replace(/\\054/g, ',')
@@ -371,7 +372,7 @@ function handleAi() {
   }
 
   const isSubscribe = JSON.parse(localStorage.getItem("payload"))['is_subscribe'];
-  
+
   if (isSubscribe === false) {
     alert("※ 🤖AI기능을 사용하시려면 멤버십 구독을 해주세요!")
   }
@@ -385,8 +386,8 @@ function handleAi() {
 async function Check_user_data() {
   // 클라이언트에서 API 요청 보내는 예시 (JavaScript)
   const access_token = localStorage.getItem("access");
-  
-  const url = 'http://127.0.0.1:8000/payments/api/subscription/';  // API 엔드포인트 URL
+
+  const url = 'https://soeun.net/payments/api/subscription/';  // API 엔드포인트 URL
 
   fetch(url, {
     method: 'GET',

@@ -10,12 +10,12 @@ if (personObj) {
 }
 
 async function getReviewDetail() {
-    const root_address = `http://127.0.0.1:8000`;
+    const root_address = `${backend_base_url}:`;
     params = new URLSearchParams(window.location.search);
     review_id = params.get("review_id");
 
 
-    const response = await fetch(`http://127.0.0.1:8000/review/detail/${review_id}/`, {
+    const response = await fetch(`${backend_base_url}/review/detail/${review_id}/`, {
 
         headers: {
             "Content-Type": "application/json",
@@ -89,7 +89,7 @@ getReviewDetail()
 async function show_comment() {
     params = new URLSearchParams(window.location.search);
     review_id = params.get("review_id");
-    const response = await fetch(`http://127.0.0.1:8000/review/comment/${review_id}/`, {
+    const response = await fetch(`${backend_base_url}/review/comment/${review_id}/`, {
 
         headers: {
             "Content-Type": "application/json",
@@ -106,7 +106,8 @@ async function show_comment() {
         let month = (created_at.getMonth() + 1); // 월, 11[1을 더해야함. 유일하게 조심해야할 부분. 1월은 0이다.]
         let date = created_at.getDate(); // 일, 14
         let year = created_at.getFullYear()
-        let user = a['user_name']
+        let user_emali = a['user_name']
+        let user = a['user']
         console.log(a)
         if (user == user_id) {
             let temp_html1 = `
@@ -121,7 +122,7 @@ async function show_comment() {
                                     <button class="btn btn-secondary" onclick="delete_comment('${comment_id}')">삭제</button>
                                 </div>
                                 <div style="float: right;">
-                                    <h5 style="font-size: 15px">${user}(${year}.${month}.${date})</h5>
+                                    <h5 style="font-size: 15px">${user_emali}(${year}.${month}.${date})</h5>
                                 </div>
                             </div>
                         </div><br>
@@ -137,7 +138,7 @@ async function show_comment() {
                                         </div>
                                         <br><br>
                                         <div style="float: right;">
-                                            <h5 style="font-size: 15px">${user}(${year}.${month}.${date})</h5>
+                                            <h5 style="font-size: 15px">${user_emali}(${year}.${month}.${date})</h5>
                                         </div>
                                     </div>
                                 </div><br>
@@ -161,7 +162,7 @@ async function save_comment() {
         alert('로그인 후 사용해 주세요!')
         return false
     }
-    const response = await fetch(`http://127.0.0.1:8000/review/comment/${review_id}/`, {
+    const response = await fetch(`${backend_base_url}/review/comment/${review_id}/`, {
 
         headers: {
             "Content-Type": "application/json",
@@ -194,7 +195,7 @@ async function save_comment() {
 
 async function delete_comment(comment_id) {
     const access_token = localStorage.getItem('access')
-    const response = await fetch(`http://127.0.0.1:8000/review/comment/${comment_id}/`, {
+    const response = await fetch(`${backend_base_url}/review/comment/${comment_id}/`, {
 
         headers: {
             "Content-Type": "application/json",
@@ -243,7 +244,7 @@ async function patch_comment(comment_id) {
     }
     const access_token = localStorage.getItem('access')
 
-    const response = await fetch(`http://127.0.0.1:8000/review/comment/${comment_id}/`, {
+    const response = await fetch(`${backend_base_url}/review/comment/${comment_id}/`, {
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${access_token}`
@@ -273,7 +274,7 @@ async function patch_comment(comment_id) {
 }
 
 async function delete_review(review_id) {
-    const response = await fetch(`http://127.0.0.1:8000/review/detail/${review_id}/`, {
+    const response = await fetch(`${backend_base_url}/review/detail/${review_id}/`, {
 
         headers: {
             "Content-Type": "application/json",
