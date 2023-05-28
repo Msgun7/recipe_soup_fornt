@@ -23,7 +23,7 @@ async function navigateToDetailPage() {
 
   }
   else {
-    window.location.replace(`http://127.0.0.1:5500/window.html`)
+    window.location.replace(`https://soeun.net/window.html`)
   }
 }
 
@@ -409,5 +409,3 @@ async function Check_user_data() {
 
 
 Check_user_data();
-
-

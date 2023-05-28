@@ -65,11 +65,11 @@ fetch(url + `?orderId=${orderId}&paymentKey=${paymentKey}&amount=${amount}`, {
     localStorage.removeItem("payload")
     localStorage.removeItem("is_subscribe")
     document.cookie = "jwt_token=; expires=Thu, 01 Jan 2023 00:00:01 UTC; path=/;";  // 쿠키 삭제
-    window.location.replace(`http://127.0.0.1:5500/index.html`)
+    window.location.replace(`https://soeun.net/index.html`)
   })
   .catch(error => {
     // 에러 처리
     console.error(error);
-    window.location.replace(`http://127.0.0.1:5500/fail.html`)
+    window.location.replace(`https://soeun.net/fail.html`)
   });
 
