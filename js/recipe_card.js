@@ -9,7 +9,7 @@ $(document).ready(function () {
       let temp = `<a a href="" class=" cp-button secondary" data-bs-toggle="modal" data-bs-target="#review"> 후기 작성</a>`
       $("#save_review_box").append(temp)
     }
-    const response = await fetch(`https://soeun.net/recipe/${recipe_id}/`, {
+    const response = await fetch(`${backend_base_url}/recipe/${recipe_id}/`, {
 
       headers: {
         "Content-Type": "application/json",
@@ -273,7 +273,7 @@ async function createReview() {
 
   console.log(access_token)
 
-  response = await fetch(`http://127.0.0.1:8000/review/${recipe_id}/`, {
+  response = await fetch(`${backend_base_url}/review/${recipe_id}/`, {
     headers: {
       "Authorization": `Bearer ${access_token}`,
     },

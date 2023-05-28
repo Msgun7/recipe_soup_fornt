@@ -5,9 +5,8 @@ const amount = urlParams.get('amount');
 const paymentKey = urlParams.get('paymentKey');
 // 쿠키에서 액세스 JWT 토큰 가져오기
 const access_token = localStorage.getItem("access");
-const isSubscribe = localStorage.getItem("is_subscribe");
 
-const url = "http://127.0.0.1:8000/payments/success";
+const url = `${backend_base_url}/payments/success`;
 const secretKey = "test_sk_qLlDJaYngroLz95eAom8ezGdRpXx";
 const userpass = secretKey + ':';
 const encodedU = window.btoa(userpass);
@@ -17,6 +16,8 @@ const headers = {
   "Content-Type": "application/json",
   "Authorization-Token": `${access_token}`  // 액세스 토큰 값 설정
 };
+
+console.log(headers)
 
 const params = {
   "orderId": orderId,
@@ -56,10 +57,16 @@ fetch(url + `?orderId=${orderId}&paymentKey=${paymentKey}&amount=${amount}`, {
                   <p class="content">구독종료일 : ${end_date}</p>
                   `
     $('#payments-info').append(temp_html)
+
+    localStorage.setItem("is_subscribe", "true")
+    alert('로그인을 다시 해주세요!')
+    localStorage.removeItem("access")
+    localStorage.removeItem("refresh")
+    localStorage.removeItem("payload")
+    localStorage.removeItem("is_subscribe")
+    document.cookie = "jwt_token=; expires=Thu, 01 Jan 2023 00:00:01 UTC; path=/;";  // 쿠키 삭제
+    window.location.replace(`http://127.0.0.1:5500/index.html`)
   })
-
-localStorage.setItem("is_subscribe", "true")
-
   .catch(error => {
     // 에러 처리
     console.error(error);

@@ -1,16 +1,19 @@
 // 기본 URL
-const backend_base_url = "https://api.soeun.net/"
-const frontend_base_url = "http://127.0.0.1:5500"
+const backend_base_url = "https://api.soeun.net"
+const frontend_base_url = "https://soeun.net"
 
 let jwtToken;
-
-
 
 async function navigateToDetailPage() {
   console.log("테스트")
   // HTML에서 상세 페이지로 이동할 요소를 선택합니다.
 
   const payloadData = localStorage.getItem("payload")
+
+  if (!payloadData) {
+    alert("회원가입 또는 로그인을 해주세요!")
+  }
+
   const payloadObj = JSON.parse(payloadData); // JSON 문자열을 JavaScript 객체로 변환
   const Obj_is_subscribe = payloadObj.is_subscribe;
 
@@ -30,7 +33,7 @@ async function handleSignup() {
   const password = document.getElementById("password").value
   const password2 = document.getElementById("password2").value
 
-  const response = await fetch(`http://127.0.0.1:8000/users/signups/`, {
+  const response = await fetch(`${backend_base_url}/users/signups/`, {
     headers: {
       'content-type': 'application/json',
     },
@@ -65,10 +68,10 @@ async function handleSignup() {
 
 // 로그인
 async function handleSignin() {
-  const email = document.getElementById("login_email").value
-  const password = document.getElementById("login_password").value
+  const email = document.getElementById("login-email").value
+  const password = document.getElementById("login-password").value
 
-  const response = await fetch(`http://127.0.0.1:8000/users/logins/`, {
+  const response = await fetch(`${backend_base_url}/users/logins/`, {
     headers: {
       'content-type': 'application/json',
     },
@@ -92,10 +95,8 @@ async function handleSignin() {
     const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''))
-    const isSubscribe = Boolean(jsonPayload.is_subscribe);
 
     localStorage.setItem('payload', jsonPayload)
-    localStorage.setItem('is_subscribe', isSubscribe.toString());
     document.getElementById("login").querySelector('[data-bs-dismiss="modal"]').click();
     location.reload()
   }
@@ -118,6 +119,7 @@ function savePayloadToLocalStorage() {
     }
   }
 
+
   if (jwtToken) {
     const token = jwtToken.replace(/"/g, '').replace(/'/g, '"').replace(/\\054/g, ',')
     const response_json = JSON.parse(token);
@@ -128,12 +130,18 @@ function savePayloadToLocalStorage() {
     const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
-    const isSubscribe = Boolean(jsonPayload.is_subscribe);
 
     localStorage.setItem("access", access_token);
     localStorage.setItem("payload", jsonPayload);
-    localStorage.setItem("is_subscribe", isSubscribe.toString());
   }
+}
+
+function savePayIsSubscribe() {
+  const payload = localStorage.getItem("payload");
+  const payload_parse = JSON.parse(payload)
+  const isSubscribe = payload_parse.is_subscribe
+
+  localStorage.setItem("is_subscribe", isSubscribe);
 }
 
 async function KakaoSignup() {
@@ -246,6 +254,7 @@ function handleLogout() {
     localStorage.removeItem("refresh")
     localStorage.removeItem("payload")
     localStorage.removeItem("is_subscribe")
+    localStorage.removeItem("is_subscribe")
     document.cookie = "jwt_token=; expires=Thu, 01 Jan 2023 00:00:01 UTC; path=/;";  // 쿠키 삭제
     window.location.replace(`${frontend_base_url}/index.html`)
   }
@@ -254,7 +263,6 @@ function handleLogout() {
 
 function checkLogin() {
   const payload = localStorage.getItem("payload");
-  const isSubscribe = localStorage.getItem("is_subscribe");
 
   if (!payload) {
     window.location.replace(`${frontend_base_url}/index.html`)
@@ -279,6 +287,7 @@ async function handlesUserDelete() {
     localStorage.removeItem("access")
     localStorage.removeItem("refresh")
     localStorage.removeItem("payload")
+    localStorage.removeItem("is_subscribe")
     localStorage.removeItem("is_subscribe")
     document.cookie = "jwt_token=; expires=Thu, 01 Jan 2023 00:00:01 UTC; path=/;";  // 쿠키 삭제
     location.reload()
@@ -329,6 +338,8 @@ function signUpsignInError() {
 
 signUpsignInError()
 savePayloadToLocalStorage()
+savePayIsSubscribe()
+
 
 const getCookieValue = (key) => {
   const cookies = document.cookie.split(';');
@@ -346,54 +357,42 @@ const getCookieValue = (key) => {
 
 // Ai기능사용관련
 function checkSubscribe() {
-  const isSubscribe = localStorage.getItem("is_subscribe");
+  const isSubscribe = JSON.parse(localStorage.getItem("payload"))['is_subscribe'];
 
-  if (isSubscribe === "false") {
+  if (isSubscribe === false) {
     window.location.replace(`${frontend_base_url}/index.html`)
   }
 }
 
 function handleAi() {
-  const isSubscribe = localStorage.getItem("is_subscribe");
+  const payload = localStorage.getItem("payload");
 
-  if (isSubscribe === "false") {
+  if (!payload) {
+    alert("※ 🤖AI기능을 사용하시려면 로그인을 해주세요!")
+  }
+
+  const isSubscribe = JSON.parse(localStorage.getItem("payload"))['is_subscribe'];
+
+  if (isSubscribe === false) {
     alert("※ 🤖AI기능을 사용하시려면 멤버십 구독을 해주세요!")
   }
 
-  if (isSubscribe === "true") {
+  if (isSubscribe === true) {
     window.location.replace(`${frontend_base_url}/aipage.html`)
   }
-}
 
+}
 
 async function Check_user_data() {
   // 클라이언트에서 API 요청 보내는 예시 (JavaScript)
+  const access_token = localStorage.getItem("access");
 
-  const cookies = document.cookie.split(';');
-
-  let jwtToken;
-  let accessToken;
-
-  for (let i = 0; i < cookies.length; i++) {
-    const cookie = cookies[i].trim();
-    const [name, value] = cookie.split('=');
-
-    if (name === "jwt_token") {
-      jwtToken = value;
-      const cookieObject = JSON.parse(jwtToken.replace(/"/g, '').replace(/'/g, '"').replace(/\\054/g, ','));
-      accessToken = cookieObject.access;
-      break;
-    }
-  }
-  // const jwtToken = getCookie('access');
-
-
-  const url = 'http://127.0.0.1:8000/payments/api/subscription/';  // API 엔드포인트 URL
+  const url = 'https://soeun.net/payments/api/subscription/';  // API 엔드포인트 URL
 
   fetch(url, {
     method: 'GET',
     headers: {
-      "Authorization-Token": accessToken  // 액세스 토큰 값 설정
+      "Authorization-Token": `${access_token}`   // 액세스 토큰 값 설정
     },
   })
 
@@ -410,4 +409,5 @@ async function Check_user_data() {
 
 
 Check_user_data();
+
 
