@@ -101,13 +101,13 @@ async function show_comment() {
     $('#comment_box').empty()
     response_json.forEach((a) => {
         const comment = a['comment']
-        // const user = a['user']
         const comment_id = a['id']
         let created_at = new Date(a['created_at']);
         let month = (created_at.getMonth() + 1); // 월, 11[1을 더해야함. 유일하게 조심해야할 부분. 1월은 0이다.]
         let date = created_at.getDate(); // 일, 14
         let year = created_at.getFullYear()
-        let user = a['user']
+        let user = a['user_name']
+        console.log(a)
         if (user == user_id) {
             let temp_html1 = `
                         <div class="media" style="padding: 20px">
@@ -121,7 +121,7 @@ async function show_comment() {
                                     <button class="btn btn-secondary" onclick="delete_comment('${comment_id}')">삭제</button>
                                 </div>
                                 <div style="float: right;">
-                                    <h5 style="font-size: 15px">작성자 : kmy9810(${year}.${month}.${date})</h5>
+                                    <h5 style="font-size: 15px">${user}(${year}.${month}.${date})</h5>
                                 </div>
                             </div>
                         </div><br>
@@ -137,7 +137,7 @@ async function show_comment() {
                                         </div>
                                         <br><br>
                                         <div style="float: right;">
-                                            <h5 style="font-size: 15px">작성자 : kmy9810(${year}.${month}.${date})</h5>
+                                            <h5 style="font-size: 15px">${user}(${year}.${month}.${date})</h5>
                                         </div>
                                     </div>
                                 </div><br>
@@ -277,7 +277,6 @@ async function delete_review(review_id) {
 
         headers: {
             "Content-Type": "application/json",
-            // Authorization: "Bearer " + localStorage.getItem("access"),
         },
         method: "DELETE",
     });
