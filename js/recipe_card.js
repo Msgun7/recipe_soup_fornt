@@ -1,43 +1,50 @@
 $(document).ready(function () {
-  getRecipeDetail()
-  async function getRecipeDetail() {
-    params = new URLSearchParams(window.location.search);
-    recipe_id = params.get("recipe_id");
-    localStorage.setItem("last_watch_recipe", recipe_id)
+    getRecipeDetail()
+    async function getRecipeDetail() {
+        params = new URLSearchParams(window.location.search);
+        recipe_id = params.get("recipe_id");
+        localStorage.setItem("last_watch_recipe", recipe_id)
+        const check_cookie = document.cookie.split(';').length
+        if (check_cookie > 1) {
+            const cookies = getCookieValue('jwtToken')
+            if (`${cookies}`) {
+                let temp = `<a a href="" class=" cp-button secondary" data-bs-toggle="modal" data-bs-target="#review"> 후기 작성</a>`
+                $("#save_review_box").append(temp)
+            }
+        }
+//         let temp = `<a a href="" class=" cp-button secondary" data-bs-toggle="modal" data-bs-target="#review"> 후기 작성</a>`
+//         $("#save_review_box").append(temp)
 
-    // moveJwtTokenFromCookieToLocalStorage();
+        const response = await fetch(`http://127.0.0.1:8000/recipe/${recipe_id}/`, {
 
-    const response = await fetch(`http://127.0.0.1:8000/recipe/${recipe_id}/`, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: "GET",
+        });
+        //해당 숙소 리뷰 조회
+        const response_json = await response.json()
+        // 메인이미지
+        const main_img = response_json['main_img']
+        let temp_html1 = `<img class="thumb" src="${main_img}" style="float:left; border: 2px solid #696865;">`
+        $("#main_img").append(temp_html1);
 
-      headers: {
-        "Content-Type": "application/json",
-        // Authorization: "Bearer " + localStorage.getItem("access"),
-      },
-      method: "GET",
-    });
-    //해당 숙소 리뷰 조회
-    const response_json = await response.json()
-    // 메인이미지
-    const main_img = response_json['main_img']
-    let temp_html1 = `<img class="thumb" src="${main_img}" style="float:left; border: 2px solid #696865;">`
-    $("#main_img").append(temp_html1);
+        // 레시피 이름
+        const name = response_json['name']
+        let temp_html2 = `<a class="back-link"><${name}></a>`
+        $("#recipe_name").append(temp_html2)
 
-    // 레시피 이름
-    const name = response_json['name']
-    let temp_html2 = `<a class="back-link"><${name}></a>`
-    $("#recipe_name").append(temp_html2)
-
-    // 레시피 정보
-    const category = response_json['category']
-    const kcal = response_json['kcal']
-    const tag = response_json['tag']
-    const car = response_json['car']
-    const fat = response_json['fat']
-    const na = response_json['na']
-    const pro = response_json['pro']
-    const tip = response_json['tip']
-    const ingredients = response_json['ingredients']
-    let temp_html3 = `
+        // 레시피 정보
+        const category = response_json['category']
+        const kcal = response_json['kcal']
+        const tag = response_json['tag']
+        const car = response_json['car']
+        const fat = response_json['fat']
+        const na = response_json['na']
+        const pro = response_json['pro']
+        const tip = response_json['tip']
+        const ingredients = response_json['ingredients']
+        let temp_html3 = `
                         <div style="float: left;">
                             <h5>category(${category})</h5>
                         </div>
@@ -257,31 +264,28 @@ class Gallery {
 
 
 async function createReview() {
+    params = new URLSearchParams(window.location.search);
+    recipe_id = params.get("recipe_id");
+    const title = document.getElementById("title").value;
+    const star = parseInt(document.getElementById("star").value);
+    const content = document.getElementById("content").value;
+    const image = document.getElementById("image");
 
+    const formData = new FormData();
+    formData.append("title", title,);
+    formData.append("star", star);
+    formData.append("content", content);
+    formData.append("image", image.files[0]);
 
-  const accessToken = localStorage.getItem('access')
-  params = new URLSearchParams(window.location.search);
-  recipe_id = params.get("recipe_id");
-  const title = document.getElementById("title").value;
-  const star = parseInt(document.getElementById("star").value);
-  const content = document.getElementById("content").value;
-  const image = document.getElementById("image");
+    console.log(access_token)
 
-  const formData = new FormData();
-  formData.append("title", title,);
-  formData.append("star", star);
-  formData.append("content", content);
-  formData.append("image", image.files[0]);
-
-
-  response = await fetch(`http://127.0.0.1:8000/review/${recipe_id}/`, {
-    headers: {
-      // 'Authorization': `Bearer ${accessToken}`
-    },
-    method: 'POST',
-    body: formData
-  })
-
+    response = await fetch(`http://127.0.0.1:8000/review/${recipe_id}/`, {
+        headers: {
+            "Authorization": `Bearer ${access_token}`,
+        },
+        method: 'POST',
+        body: formData
+    })
     .then(response => response.json())
 
     .then(data => {
