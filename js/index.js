@@ -1,28 +1,20 @@
 let category_id = "1";
 let recipe_total = 0
-// let last_page = parseInt(recipe_total / 8) + 2
-
 
 function RecipeList(event) {
-  const url = new URLSearchParams(window.location.search)
-  console.log(url.get("recipe_id"))
-
-  // const accessToken = localStorage.getItem('access')
-  
-  if (event && event.target) {
-    category_id = event.target.id.slice(-1);
-  }
   localStorage.setItem("page", 0)
+  const url = new URLSearchParams(window.location.search)
+  const category = url.get("category_id")
+
+  if (category) {
+    category_id = category
+  }
 
   recipe_total = 0
   // 페이징을 위한 숫자 불러오기
   P_Page()
 
 }
-// if (url.get("recipe_id")) {
-// } else {
-// RecipeList()
-// }
 
 function index() {
   window.location.replace(`${frontend_base_url}/index.html`)
