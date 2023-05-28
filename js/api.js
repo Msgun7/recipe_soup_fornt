@@ -248,26 +248,11 @@ function handleLogout() {
 
 function checkLogin() {
   const payload = localStorage.getItem("payload");
-  const cookies = document.cookie.split(';');
-
-  for (let i = 0; i < cookies.length; i++) {
-    const cookie = cookies[i].trim();
-    const [name, value] = cookie.split('=');
-
-    if (name === "jwt_token") {
-      jwtToken = value;
-      break;
-    }
-  }
-
-  if (!jwtToken || !payload) {
-    window.location.replace(`${frontend_base_url}/index.html`);
-
   if (!payload) {
     window.location.replace(`${frontend_base_url}/index.html`)
   }
 }
-}
+
 
 // 회원탈퇴
 async function handlesUserDelete() {
@@ -280,7 +265,7 @@ async function handlesUserDelete() {
       "Authorization": `Bearer ${access_token}`
     },
     method: 'DELETE',
-  }) 
+  })
   if (response.status == 204) {
     alert("※ 회원탈퇴가 정상적으로 완료되었습니다!")
     localStorage.removeItem("access")
@@ -361,6 +346,7 @@ async function CheckSubscription() {
     alert("구독 후 사용가능합니다!");
     window.location.replace(`${frontend_base_url}/index_pay.html`)
   }
+
 }
 
 
@@ -371,7 +357,7 @@ async function Check_user_data() {
 
   let jwtToken;
   let accessToken;
-
+  
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].trim();
     const [name, value] = cookie.split('=');
